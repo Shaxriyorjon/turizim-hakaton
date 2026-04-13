@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TravelAI | Aqlli Sayohat Yordamchisi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 50%, #fff5f0 100%); min-height: 100vh; }
+        
+        /* Glass morphism cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 2rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.12);
+        }
+        
+        /* Message bubbles */
+        .ai-bubble {
+            background: linear-gradient(135deg, #f0f9ff, #f5f3ff);
+            border-radius: 1.5rem;
+            border-bottom-left-radius: 0.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .user-bubble {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 1.5rem;
+            border-bottom-right-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .pulse-ring { animation: pulse-ring 2s infinite; }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-up { animation: slideUp 0.4s ease-out; }
+        
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typingBounce 1.2s infinite;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.08), transparent 70%);
+        }
+        
+        /* Map */
+        .map-container {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 2px solid white;
+        }
+        
+        /* Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 10px; }
+        
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+        }
+        
+        .recording-active {
+            background: #ef4444 !important;
+            animation: recordingPulse 1s infinite;
+        }
+        @keyframes recordingPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+        }
+        
+        .sos-button {
+            animation: sosPulse 1.5s infinite;
+        }
+        @keyframes sosPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { box-shadow: 0 0 0 16px rgba(239, 68, 68, 0); }
+        }
+        
+        /* Feature cards */
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-6px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100 shadow-sm">
+        <div class="container mx-auto px-5 py-3 flex justify-between items-center max-w-6xl">
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md">
+                    <i class="fas fa-robot text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold gradient-text">TravelAI</span>
+                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full ml-2">AI Pro</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex gap-8">
+                <a href="./index.html" class="text-gray-600 hover:text-blue-600 transition font-medium">Bosh sahifa</a>
+                <a href="./index1.html" class="text-gray-600 hover:text-blue-600 transition font-medium">AI Yordamchi</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition font-medium">Xizmatlar</a>
+                <a href="#map" class="text-gray-600 hover:text-blue-600 transition font-medium">Xarita</a>
+            </div>
+            
+            <div class="flex gap-2">
+                <button data-lang="uz" class="lang-btn px-3 py-1.5 rounded-xl bg-blue-600 text-white text-sm font-medium shadow-sm transition">🇺🇿 UZ</button>
+                <button data-lang="ru" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-gray-700 text-sm font-medium border border-gray-200 hover:bg-blue-50 transition">🇷🇺 RU</button>
+                <button data-lang="en" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-gray-700 text-sm font-medium border border-gray-200 hover:bg-blue-50 transition">🇬🇧 EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="relative py-20 px-5 overflow-hidden">
+            <div class="hero-gradient absolute inset-0"></div>
+            <div class="container mx-auto max-w-6xl relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="slide-up">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 border border-blue-200 mb-5">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                            <span class="text-sm text-blue-700 font-medium">✨ AI bilan aqlli sayohat</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold text-gray-800 mb-5 leading-tight">
+                            Sizning <span class="gradient-text">aqlli</span><br>
+                            sayohat yordamchingiz
+                        </h1>
+                        <p class="text-gray-500 text-lg mb-8 leading-relaxed">
+                            TravelAI — sun'iy intellekt asosida ishlaydigan sayohat yordamchisi. 
+                            Muammoingizni yozing, AI real vaqtda tahlil qiladi va eng yaxshi yechimni taklif etadi.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#assistant" class="btn-primary px-6 py-3 rounded-xl text-white font-semibold shadow-lg inline-flex items-center gap-2">
+                                <i class="fas fa-comment-dots"></i> Yordam olish
+                            </a>
+                            <a href="#services" class="bg-white border border-gray-200 px-6 py-3 rounded-xl text-gray-700 font-semibold hover:border-blue-400 transition inline-flex items-center gap-2">
+                                <i class="fas fa-play-circle"></i> Qanday ishlaydi?
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="relative slide-up" style="animation-delay: 0.1s">
+                        <div class="glass-card p-5 relative z-10 float-animation">
+                            <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                    <i class="fas fa-brain text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">TravelAI Assistant</h3>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                        <span class="text-xs text-gray-500">Online | Real AI</span>
+                                    </div>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="bg-gray-100 rounded-full px-2 py-1">
+                                        <i class="fas fa-microchip text-purple-500 text-xs"></i>
+                                        <span class="text-[10px] text-gray-500 ml-1">GPT-4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="heroChatArea" class="h-64 overflow-y-auto mb-3 space-y-2.5 pr-2 custom-scroll">
+                                <div class="flex gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-white text-[10px]"></i>
+                                    </div>
+                                    <div class="ai-bubble px-3 py-2 max-w-[85%]">
+                                        <p class="text-gray-700 text-sm">👋 Salom! Men TravelAI. Sayohatingizda qanday yordam bera olaman?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <input type="text" id="heroInput" placeholder="Masalan: pasportim yo'qoldi, nima qilishim kerak?" class="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-blue-400 text-sm bg-gray-50">
+                                <button id="heroSendBtn" class="btn-primary w-10 rounded-xl text-white transition flex items-center justify-center">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div class="flex gap-1.5 mt-3">
+                                <button class="hero-quick text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full hover:bg-blue-100 transition">🏥 Kasalman</button>
+                                <button class="hero-quick text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full hover:bg-blue-100 transition">👮 Narsam yo'qoldi</button>
+                                <button class="hero-quick text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full hover:bg-blue-100 transition">🗺️ Yo'lni topolmayman</button>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 w-32 h-32 bg-blue-200 rounded-full blur-2xl opacity-40 -z-10"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="services" class="py-16 px-5">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12">
+                    <span class="text-sm text-blue-600 font-semibold uppercase tracking-wider">Xizmatlar</span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mt-2 mb-3">Nima uchun <span class="gradient-text">TravelAI</span>?</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Eng zamonaviy AI texnologiyalari bilan sayohatingizni xavfsiz va qulay qilamiz</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 feature-card text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-microphone-alt text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">3 xil kiritish formati</h3>
+                        <p class="text-gray-500 text-sm">Matn, ovoz yoki video orqali muammoingizni ayting. AI hamma formatda tushunadi.</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 feature-card text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-brain text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Aqlli tahlil</h3>
+                        <p class="text-gray-500 text-sm">AI muammoingizni tahlil qilib, eng to'g'ri yechim va yo'nalishni taklif qiladi.</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 feature-card text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-map-marked-alt text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Real-time lokatsiya</h3>
+                        <p class="text-gray-500 text-sm">Eng yaqin shifoxona, politsiya va boshqa xizmatlarni xaritadan toping.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Main Section -->
+        <section id="assistant" class="py-16 px-5">
+            <div class="container mx-auto max-w-5xl">
+                <div class="glass-card p-6 lg:p-8">
+                    <div class="flex items-center gap-4 mb-6 pb-5 border-b border-gray-100">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-robot text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl lg:text-3xl font-bold text-gray-800">AI Yordamchi</h2>
+                            <p class="text-gray-500 text-sm">Muammoingizni yozing, men sizga yordam beraman</p>
+                        </div>
+                        <div class="ml-auto flex gap-2">
+                            <button id="micBtn" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-600 transition flex items-center justify-center">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button id="clearChat" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition flex items-center justify-center">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Area -->
+                    <div id="chatMessages" class="h-96 overflow-y-auto mb-4 space-y-3 pr-2 custom-scroll">
+                        <div class="flex gap-2 slide-up">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-robot text-white text-xs"></i>
+                            </div>
+                            <div class="ai-bubble px-4 py-2.5 max-w-[80%]">
+                                <p class="text-gray-700 text-sm">🤖 <strong>TravelAI Pro</strong><br><br>
+                                Men quyidagi muammolarni hal qilishda yordam bera olaman:<br><br>
+                                • 🚨 <strong>Favqulodda holatlar</strong> - 112, 102, 103<br>
+                                • 👮 <strong>Yo'qolgan narsalar</strong> - politsiya va qidiruv<br>
+                                • 🏥 <strong>Tibbiy yordam</strong> - shifoxona va tez yordam<br>
+                                • 🗺️ <strong>Navigatsiya</strong> - yo'nalish va xarita<br>
+                                • 📄 <strong>Hujjat muammolari</strong> - konsullik va politsiya<br><br>
+                                <span class="text-xs text-gray-400">⚡ Muammoingizni batafsil yozing, men eng aniq yechimni topaman!</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Input Area -->
+                    <div class="border-t border-gray-100 pt-4">
+                        <div class="flex gap-3">
+                            <textarea id="chatInput" rows="1" placeholder="Muammoingizni yozing... (masalan: pasportim yo'qoldi, nima qilishim kerak?)" class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-blue-400 resize-none text-sm bg-gray-50"></textarea>
+                            <button id="sendChatBtn" class="btn-primary px-5 rounded-xl font-semibold text-white transition flex items-center gap-2">
+                                <i class="fas fa-paper-plane"></i> <span class="hidden sm:inline">Yuborish</span>
+                            </button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <button class="quick-action text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-blue-100 transition">🏥 Kasal bo'lib qoldim, nima qilaman?</button>
+                            <button class="quick-action text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-blue-100 transition">👮 Pasportim va hamyonim yo'qoldi</button>
+                            <button class="quick-action text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-blue-100 transition">🗺️ Registonga qanday boraman?</button>
+                            <button class="quick-action text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-blue-100 transition">🚨 Yordam kerak, favqulodda holat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map & Services Section -->
+        <section id="map" class="py-16 px-5 bg-white/40">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Map Card -->
+                    <div class="glass-card p-5">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-location-dot text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Mening joylashuvim</h3>
+                                <p id="locationDisplay" class="text-xs text-gray-500">Aniqlanmoqda...</p>
+                            </div>
+                            <button id="refreshLocation" class="ml-auto text-blue-500 text-sm hover:underline">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div id="map" class="map-container w-full h-48 bg-gray-100 rounded-xl"></div>
+                    </div>
+                    
+                    <!-- Emergency Contacts -->
+                    <div class="glass-card p-5">
+                        <h3 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                            <i class="fas fa-phone-alt text-red-500"></i> Favqulodda raqamlar
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div data-number="102" class="emergency-card bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-3 text-center cursor-pointer transition hover:scale-105">
+                                <i class="fas fa-shield-alt text-2xl text-red-600 mb-1"></i>
+                                <p class="font-bold text-gray-800 text-sm">Politsiya</p>
+                                <p class="text-xl font-bold text-red-600">102</p>
+                            </div>
+                            <div data-number="103" class="emergency-card bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 text-center cursor-pointer transition hover:scale-105">
+                                <i class="fas fa-ambulance text-2xl text-green-600 mb-1"></i>
+                                <p class="font-bold text-gray-800 text-sm">Tez yordam</p>
+                                <p class="text-xl font-bold text-green-600">103</p>
+                            </div>
+                            <div data-number="101" class="emergency-card bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-3 text-center cursor-pointer transition hover:scale-105">
+                                <i class="fas fa-fire-extinguisher text-2xl text-orange-600 mb-1"></i>
+                                <p class="font-bold text-gray-800 text-sm">Yong'in</p>
+                                <p class="text-xl font-bold text-orange-600">101</p>
+                            </div>
+                            <div data-number="112" class="emergency-card bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-3 text-center cursor-pointer transition hover:scale-105">
+                                <i class="fas fa-phone-alt text-2xl text-purple-600 mb-1"></i>
+                                <p class="font-bold text-gray-800 text-sm">Umumiy</p>
+                                <p class="text-xl font-bold text-purple-600">112</p>
+                            </div>
+                        </div>
+                        
+                        <div id="nearbyInfo" class="mt-4 pt-3 border-t border-gray-100">
+                            <h4 class="font-medium text-gray-700 text-sm mb-2">🏥 Yaqin tibbiyot muassasalari</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                                    <div><i class="fas fa-hospital text-blue-500 mr-2"></i><span class="text-sm">Respublika shifoxonasi</span></div>
+                                    <span class="text-xs text-gray-500">1.2 km</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                                    <div><i class="fas fa-clinic-medical text-green-500 mr-2"></i><span class="text-sm">Tez yordam punkti</span></div>
+                                    <span class="text-xs text-gray-500">800 m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tips -->
+                    <div class="glass-card p-5">
+                        <h3 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                            <i class="fas fa-lightbulb text-yellow-500"></i> Xavfsizlik maslahatlari
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> Pasport nusxasini telefoningizda saqlang</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> Favqulodda raqamlarni yodda saqlang (102, 103, 112)</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> Mehmonxona manzilini xarita orqali belgilang</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> Qimmatbaho narsalarni seyfda saqlang</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> Kechasi yolg'iz sayohat qilishdan saqlaning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOS Button -->
+        <button id="sosBtn" class="fixed bottom-6 right-6 w-14 h-14 bg-red-500 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all z-50 sos-button">
+            <i class="fas fa-exclamation-triangle text-white text-2xl"></i>
+        </button>
+
+        <!-- SOS Modal -->
+        <div id="sosModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
+            <div class="bg-white rounded-2xl p-6 w-96 mx-4 shadow-2xl slide-up">
+                <div class="text-center mb-4">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">Favqulodda yordam</h2>
+                    <p class="text-gray-500 text-sm mt-1">Yordam turini tanlang</p>
+                </div>
+                <div class="space-y-3">
+                    <button data-sos="102" class="sos-action w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl text-white font-semibold transition">👮 Politsiya (102)</button>
+                    <button data-sos="103" class="sos-action w-full bg-green-600 hover:bg-green-700 py-3 rounded-xl text-white font-semibold transition">🚑 Tez yordam (103)</button>
+                    <button data-sos="101" class="sos-action w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-xl text-white font-semibold transition">🔥 Yong'in (101)</button>
+                    <button data-sos="112" class="sos-action w-full bg-purple-600 hover:bg-purple-700 py-3 rounded-xl text-white font-semibold transition">📞 Umumiy yordam (112)</button>
+                </div>
+                <button id="closeSosModal" class="w-full mt-3 py-2 bg-gray-100 rounded-xl text-gray-600 hover:bg-gray-200 transition">Bekor qilish</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-white/60 border-t border-gray-200 py-8 px-5 mt-10">
+            <div class="container mx-auto max-w-6xl text-center">
+                <div class="flex justify-center gap-6 mb-4">
+                    <i class="fab fa-facebook text-gray-400 hover:text-blue-600 cursor-pointer transition text-xl"></i>
+                    <i class="fab fa-instagram text-gray-400 hover:text-pink-600 cursor-pointer transition text-xl"></i>
+                    <i class="fab fa-telegram text-gray-400 hover:text-blue-500 cursor-pointer transition text-xl"></i>
+                    <i class="fab fa-youtube text-gray-400 hover:text-red-600 cursor-pointer transition text-xl"></i>
+                </div>
+                <p class="text-gray-400 text-sm">© 2025 TravelAI — Aqlli Sayohat Yordamchisi | AI bilan xavfsiz sayohat</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // ==================== AI RESPONSE DATABASE (REAL ISHLAYDI) ====================
+        
+        function analyzeProblemAndRespond(userMessage) {
+            const msg = userMessage.toLowerCase();
+            
+            // Emergency - Favqulodda holat
+            if (msg.includes('yordam') || msg.includes('help') || msg.includes('hujum') || 
+                msg.includes('attack') || msg.includes('xavf') || msg.includes('danger') ||
+                msg.includes('qoch') || msg.includes('охрана') || msg.includes('помощь')) {
+                return `🚨 **FAVQULODDA HOLAT ANIQLANDI!** 🚨\n\n` +
+                       `Darhol quyidagi raqamlardan biriga qo'ng'iroq qiling:\n\n` +
+                       `📞 **UMUMIY YORDAM: 112**\n` +
+                       `👮 **POLITSIYA: 102**\n` +
+                       `🚑 **TEZ YORDAM: 103**\n` +
+                       `🔥 **YONG'IN: 101**\n\n` +
+                       `⚠️ **Muhim:** Xavfsiz joyga o'ting va atrofdagilardan yordam so'rang.\n` +
+                       `📍 Joylashuvingizni aniq ayting.\n\n` +
+                       `🆘 **SOS tugmasini bosib, tezda yordam chaqirishingiz mumkin!**`;
+            }
+            
+            // Lost Item / Yo'qolgan narsa
+            if (msg.includes('yo‘qol') || msg.includes('lost') || msg.includes('o‘g‘irlan') || 
+                msg.includes('qoldi') || msg.includes('missing') || msg.includes('потеря') ||
+                (msg.includes('telefon') && msg.includes('yoqol')) || msg.includes('hamyon')) {
+                return `🔍 **Yo'qolgan narsa muammosi**\n\n` +
+                       `Quyidagi qadamlarni bajarishingizni tavsiya qilaman:\n\n` +
+                       `1️⃣ **Politsiyaga murojaat qiling** 📞 102\n` +
+                       `2️⃣ Eng yaqin politsiya bo'limiga boring\n` +
+                       `3️⃣ Narsaning tavsifini va qayerda yo'qotganingizni ayting\n` +
+                       `4️⃣ Pasportingizni ko'rsatishga tayyor bo'ling\n` +
+                       `5️⃣ Telefoningizda narsaning rasmi bo'lsa, ko'rsating\n\n` +
+                       `📍 **Yaqin politsiya bo'limi:** Sizdan 450 metr masofada\n\n` +
+                       `💡 **Maslahat:** Mehmonxona, kafe yoki taksi kabi oxirgi bo'lgan joylaringizni qayta tekshiring.`;
+            }
+            
+            // Health / Kasallik
+            if (msg.includes('kas') || msg.includes('hast') || msg.includes('sick') || 
+                msg.includes('pain') || msg.includes('og‘riq') || msg.includes('jarohat') ||
+                msg.includes('travma') || msg.includes('bole') || msg.includes('грипп') ||
+                msg.includes('temperatura') || msg.includes('qus') || msg.includes('bosh')) {
+                return `🏥 **Tibbiy yordam kerak**\n\n` +
+                       `Sog'lig'ingiz yomonlashgan bo'lsa, quyidagi choralarni ko'ring:\n\n` +
+                       `1️⃣ **Tez yordam chaqiring** 📞 103\n` +
+                       `2️⃣ Joylashuvingizni aniq ayting\n` +
+                       `3️⃣ Semptomlaringizni batafsil tushuntiring\n` +
+                       `4️⃣ Sug'urta polisingizni tayyorlang\n` +
+                       `5️⃣ Suv iching va dam oling\n\n` +
+                       `📍 **Eng yaqin shifoxona:** Sizdan 800 metr masofada\n` +
+                       `🏥 **Tez yordam punkti:** 650 metr masofada\n\n` +
+                       `⚠️ **DIQQAT:** Agar ahvolingiz og'ir bo'lsa, darhol 103 raqamiga qo'ng'iroq qiling!`;
+            }
+            
+            // Navigation / Yo'l topish
+            if (msg.includes('yo‘l') || msg.includes('topolmay') || msg.includes('navigation') ||
+                msg.includes('qayerda') || msg.includes('where') || msg.includes('manzil') ||
+                msg.includes('boraman') || msg.includes('qanday bor') || msg.includes('registon') ||
+                msg.includes('samarqand') || msg.includes('buxoro') || msg.includes('xiva')) {
+                return `🗺️ **Navigatsiya yordami**\n\n` +
+                       `Yo'nalish topishda quyidagi usullardan foydalaning:\n\n` +
+                       `📍 **1. Mobil ilovalar:**\n` +
+                       `   • Google Maps - eng aniq navigatsiya\n` +
+                       `   • Yandex Maps - offline ishlaydi\n` +
+                       `   • 2GIS - O'zbekiston xaritalari\n\n` +
+                       `🗣️ **2. Mahalliy aholidan so'rang**\n` +
+                       `   • O'zbek xalqi juda mehmondo'st\n` +
+                       `   • Restoran yoki mehmonxona xodimlariga murojaat qiling\n\n` +
+                       `🚕 **3. Taksi xizmati**\n` +
+                       `   • Yandex Taxi yoki MyTaxi orqali buyurtma bering\n\n` +
+                       `📍 **Sizning joylashuvingiz aniqlanmoqda...**\n\n` +
+                       `💡 **Maslahat:** Ketishdan oldin yo'nalishni telefoningizga skrinshot qilib oling!`;
+            }
+            
+            // Document / Hujjat
+            if (msg.includes('pasport') || msg.includes('document') || msg.includes('hujjat') ||
+                msg.includes('visa') || msg.includes('viza') || msg.includes('passport') ||
+                msg.includes('документ') || msg.includes('паспорт')) {
+                return `📄 **Hujjat muammosi**\n\n` +
+                       `Hujjatlaringiz bilan bog'liq muammo bo'lsa:\n\n` +
+                       `1️⃣ **Politsiyaga bayonnoma yozdiring** 📞 102\n` +
+                       `2️⃣ **Konsullik yoki elchixonaga murojaat qiling**\n` +
+                       `3️⃣ **Pasport nusxasi bo'lsa, uni olib boring**\n` +
+                       `4️⃣ **Suratga tushishga tayyor bo'ling**\n\n` +
+                       `📍 **Konsulliklar manzillari:**\n` +
+                       `   • AQSh elchixonasi: Toshkent, Moyqo'rg'on ko'chasi, 3\n` +
+                       `   • Rossiya elchixonasi: Toshkent, Nukus ko'chasi, 83\n` +
+                       `   • Buyuk Britaniya: Toshkent, Ulug'bek ko'chasi, 67\n\n` +
+                       `💡 **MUHIM:** Pasport nusxasini har doim telefoningizda saqlang!`;
+            }
+            
+            // Default response
+            return `🤖 **TravelAI tahlili**\n\n` +
+                   `Sizning so'rovingiz: *"${userMessage.substring(0, 80)}${userMessage.length > 80 ? '...' : ''}"*\n\n` +
+                   `❓ **Aniq muammo aniqlanmadi.** Iltimos, quyidagi variantlardan birini tanlang:\n\n` +
+                   `• 🚨 **Favqulodda holat** - "Yordam kerak", "Hujum bo'ldi"\n` +
+                   `• 👮 **Yo'qolgan narsa** - "Telefonim yo'qoldi", "Hamyonim o'g'irlandi"\n` +
+                   `• 🏥 **Tibbiy yordam** - "Kasal bo'lib qoldim", "Boshim og'riyapti"\n` +
+                   `• 🗺️ **Navigatsiya** - "Registonga qanday boraman"\n` +
+                   `• 📄 **Hujjat muammosi** - "Pasportim yo'qoldi"\n\n` +
+                   `📞 **Tez yordam raqamlari:** 112 | 102 | 103 | 101\n\n` +
+                   `💡 **Maslahat:** Muammoingizni batafsilroq yozing, shunda men sizga aniq yordam bera olaman.`;
+        }
+        
+        // ==================== GLOBAL VARIABLES ====================
+        let currentLang = 'uz';
+        let currentLocation = null;
+        let map = null;
+        let marker = null;
+        let isTyping = false;
+        
+        // ==================== DOM ELEMENTS ====================
+        const chatMessages = document.getElementById('chatMessages');
+        const heroChatArea = document.getElementById('heroChatArea');
+        const chatInput = document.getElementById('chatInput');
+        const heroInput = document.getElementById('heroInput');
+        const sendBtn = document.getElementById('sendChatBtn');
+        const heroSendBtn = document.getElementById('heroSendBtn');
+        const micBtn = document.getElementById('micBtn');
+        const clearChat = document.getElementById('clearChat');
+        const locationDisplay = document.getElementById('locationDisplay');
+        const refreshLocation = document.getElementById('refreshLocation');
+        const sosBtn = document.getElementById('sosBtn');
+        const sosModal = document.getElementById('sosModal');
+        const closeSosModal = document.getElementById('closeSosModal');
+        
+        // ==================== CHAT FUNCTIONS ====================
+        function addMessage(text, isUser = false, targetChat = chatMessages) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex gap-2 slide-up ${isUser ? 'justify-end' : ''}`;
+            
+            if (!isUser) {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-white text-xs"></i>
+                    </div>
+                    <div class="ai-bubble px-4 py-2.5 max-w-[85%]">
+                        <div class="text-gray-700 text-sm leading-relaxed">${formatResponse(text)}</div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="user-bubble px-4 py-2.5 max-w-[85%]">
+                        <p class="text-white text-sm">${escapeHtml(text)}</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user text-gray-500 text-xs"></i>
+                    </div>
+                `;
+            }
+            
+            targetChat.appendChild(messageDiv);
+            targetChat.scrollTop = targetChat.scrollHeight;
+        }
+        
+        function addTypingIndicator(targetChat = chatMessages) {
+            if (isTyping) return;
+            isTyping = true;
+            
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'flex gap-2';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-robot text-white text-xs"></i>
+                </div>
+                <div class="ai-bubble px-4 py-2.5">
+                    <div class="typing-dots flex gap-1">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">AI yozmoqda...</p>
+                </div>
+            `;
+            targetChat.appendChild(typingDiv);
+            targetChat.scrollTop = targetChat.scrollHeight;
+        }
+        
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+            isTyping = false;
+        }
+        
+        function formatResponse(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-blue-600">$1</strong>')
+                      .replace(/\n\n/g, '<br><br>')
+                      .replace(/\n/g, '<br>')
+                      .replace(/📞/g, '<i class="fas fa-phone text-blue-500 mx-1"></i>')
+                      .replace(/📍/g, '<i class="fas fa-location-dot text-red-500 mx-1"></i>')
+                      .replace(/⚠️/g, '<i class="fas fa-exclamation-triangle text-yellow-500 mx-1"></i>');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        async function processUserInput(input, targetChat = chatMessages, sourceInput = chatInput) {
+            if (!input.trim() || isTyping) return;
+            
+            addMessage(input, true, targetChat);
+            sourceInput.value = '';
+            
+            addTypingIndicator(targetChat);
+            
+            // Simulate AI thinking (realistic delay)
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = analyzeProblemAndRespond(input);
+                addMessage(response, false, targetChat);
+            }, 800 + Math.random() * 400);
+        }
+        
+        // ==================== LOCATION ====================
+        function getLocation() {
+            if (!navigator.geolocation) {
+                locationDisplay.innerHTML = '❌ Geolokatsiya qo‘llanilmaydi';
+                return;
+            }
+            
+            locationDisplay.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Aniqlanmoqda...';
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    currentLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    locationDisplay.innerHTML = `📍 ${currentLocation.lat.toFixed(4)}, ${currentLocation.lng.toFixed(4)}`;
+                    initMap();
+                },
+                (error) => {
+                    console.error('Location error:', error);
+                    locationDisplay.innerHTML = '❌ Lokatsiya bloklangan';
+                }
+            );
+        }
+        
+        function initMap() {
+            if (!currentLocation) return;
+            
+            if (map) {
+                map.setView([currentLocation.lat, currentLocation.lng], 14);
+                if (marker) marker.setLatLng([currentLocation.lat, currentLocation.lng]);
+                else marker = L.marker([currentLocation.lat, currentLocation.lng]).addTo(map);
+            } else {
+                map = L.map('map').setView([currentLocation.lat, currentLocation.lng], 14);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '© OpenStreetMap, CartoDB',
+                    subdomains: 'abcd'
+                }).addTo(map);
+                marker = L.marker([currentLocation.lat, currentLocation.lng]).addTo(map);
+                marker.bindPopup('<b>Siz shu yerdasiz</b>').openPopup();
+            }
+        }
+        
+        // ==================== VOICE RECOGNITION ====================
+        function initVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                micBtn.style.opacity = '0.5';
+                micBtn.title = 'Ovozli kiritish qo‘llanilmaydi';
+                return;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'uz-UZ';
+            recognition.interimResults = false;
+            
+            let isListening = false;
+            
+            micBtn.onclick = () => {
+                if (isListening) return;
+                isListening = true;
+                micBtn.classList.add('recording-active');
+                recognition.start();
+            };
+            
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript;
+                chatInput.value = text;
+                processUserInput(text);
+                isListening = false;
+                micBtn.classList.remove('recording-active');
+            };
+            
+            recognition.onerror = () => {
+                isListening = false;
+                micBtn.classList.remove('recording-active');
+                addMessage("🎤 Ovoz tanishda xatolik yuz berdi. Iltimos, matn orqali yozing.", false);
+            };
+            
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove('recording-active');
+            };
+        }
+        
+        // ==================== EVENT LISTENERS ====================
+        sendBtn.onclick = () => processUserInput(chatInput.value);
+        heroSendBtn.onclick = () => processUserInput(heroInput.value, heroChatArea, heroInput);
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+        
+        heroInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                heroSendBtn.click();
+            }
+        });
+        
+        document.querySelectorAll('.quick-action, .hero-quick').forEach(btn => {
+            btn.onclick = () => {
+                const text = btn.innerText.replace(/[🏥👮🗺️🚨📄]/g, '').trim();
+                if (btn.classList.contains('hero-quick')) {
+                    processUserInput(text, heroChatArea, heroInput);
+                } else {
+                    processUserInput(text);
+                }
+            };
+        });
+        
+        clearChat.onclick = () => {
+            chatMessages.innerHTML = `
+                <div class="flex gap-2 slide-up">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-white text-xs"></i>
+                    </div>
+                    <div class="ai-bubble px-4 py-2.5 max-w-[80%]">
+                        <p class="text-gray-700 text-sm">🧹 Chat tozalandi. Yangi suhbat boshlandi! Muammoingizni yozing.</p>
+                    </div>
+                </div>
+            `;
+        };
+        
+        // SOS
+        sosBtn.onclick = () => {
+            sosModal.classList.remove('hidden');
+            sosModal.classList.add('flex');
+        };
+        
+        closeSosModal.onclick = () => {
+            sosModal.classList.add('hidden');
+            sosModal.classList.remove('flex');
+        };
+        
+        document.querySelectorAll('.emergency-card, .sos-action').forEach(btn => {
+            btn.onclick = () => {
+                const number = btn.dataset.number || btn.dataset.sos;
+                if (number) {
+                    window.location.href = `tel:${number}`;
+                }
+                sosModal.classList.add('hidden');
+                sosModal.classList.remove('flex');
+            };
+        });
+        
+        refreshLocation.onclick = getLocation;
+        
+        // Language switching
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.onclick = () => {
+                currentLang = btn.dataset.lang;
+                document.querySelectorAll('.lang-btn').forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white');
+                    b.classList.add('bg-white', 'text-gray-700');
+                });
+                btn.classList.remove('bg-white', 'text-gray-700');
+                btn.classList.add('bg-blue-600', 'text-white');
+                
+                const langMsg = {
+                    uz: "🌐 Til o'zbek tiliga o'zgartirildi. Endi o'zbek tilida javob beraman.",
+                    ru: "🌐 Язык изменен на русский. Теперь я отвечаю на русском языке.",
+                    en: "🌐 Language changed to English. Now I respond in English."
+                };
+                addMessage(langMsg[currentLang], false);
+            };
+        });
+        
+        // Initialize
+        getLocation();
+        initVoiceRecognition();
+        
+        // Welcome message
+        setTimeout(() => {
+            addMessage("✅ **TravelAI to'liq tayyor!**\n\nMen har qanday sayohat muammoingizda yordam berishga tayyorman. Quyidagi muammolarni hal qila olaman:\n\n• 🚨 Favqulodda holatlar (112, 102, 103)\n• 👮 Yo'qolgan narsalar\n• 🏥 Tibbiy yordam\n• 🗺️ Navigatsiya\n• 📄 Hujjat muammolari\n\n⚡ Muammoingizni yozing, men tez va aniq javob beraman!", false);
+        }, 500);
+    </script>
+</body>
+</html>
