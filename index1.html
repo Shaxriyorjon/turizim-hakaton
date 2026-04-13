@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>TravelHub 360 Premium | Zamonaviy Turizm Platformasi</title>
+    <title>TravelHub 360 Premium | 10+ Til</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,1111 +12,197 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body{
-  min-height:100vh;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fef3c7 100%);
-  display:flex;align-items:center;justify-content:center;
-  overflow-x:hidden;
-  padding:20px;
-}
-
-/* Floating particles - ochiq rangda */
-.particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;}
-.p{position:absolute;border-radius:50%;animation:float linear infinite;}
-@keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}20%{opacity:0.6}80%{opacity:0.3}100%{transform:translateY(-10vh) scale(1);opacity:0}}
-
-/* Main layout */
-.scene{
-  display:flex;align-items:center;gap:60px;
-  max-width:1300px;
-  width:100%;
-}
-
-/* Info panel left - ochiq rangda */
-.info-panel{
-  flex:1;
-  display:flex;flex-direction:column;gap:20px;
-  animation:slideLeft 0.8s ease;
-}
-@keyframes slideLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
-
-.lang-title{
-  font-size:13px;font-weight:600;letter-spacing:3px;
-  color:#3b82f6;text-transform:uppercase;
-}
-.main-title{
-  font-size:36px;font-weight:800;line-height:1.2;
-  background:linear-gradient(135deg,#1e40af 0%,#7c3aed 50%,#db2777 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.main-sub{color:#4b5563;font-size:14px;line-height:1.6;}
-
-/* Language buttons */
-.lang-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.lang-btn{
-  padding:8px 16px;border-radius:20px;border:none;cursor:pointer;
-  font-size:13px;font-weight:600;transition:all 0.3s;
-  background:rgba(255,255,255,0.8);
-  border:1px solid rgba(59,130,246,0.2);
-  color:#374151;
-}
-.lang-btn.active{
-  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-  border-color:transparent;color:white;
-  box-shadow:0 4px 15px rgba(59,130,246,0.3);
-}
-.lang-btn:hover:not(.active){background:white;border-color:#3b82f6;}
-
-/* Monument cards - ochiq */
-.monument-cards{display:flex;flex-direction:column;gap:10px;}
-.m-card{
-  background:white;
-  border:1px solid rgba(59,130,246,0.15);
-  border-radius:14px;padding:12px 16px;
-  cursor:pointer;transition:all 0.3s;
-  display:flex;align-items:center;gap:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.03);
-}
-.m-card:hover,.m-card.active{
-  background:#eff6ff;
-  border-color:#3b82f6;
-  transform:translateX(4px);
-  box-shadow:0 8px 20px rgba(59,130,246,0.15);
-}
-.m-card.active{border-color:#8b5cf6;background:#f5f3ff;}
-.m-icon{font-size:24px;flex-shrink:0;}
-.m-info h4{font-size:13px;font-weight:600;color:#1f2937;}
-.m-info p{font-size:11px;color:#6b7280;}
-
-/* PHONE - asl holicha (to'q rang) qoladi */
-.phone-wrap{
-  flex-shrink:0;
-  position:relative;
-  width:300px;
-  animation:slideRight 0.8s ease;
-}
-@keyframes slideRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-
-.phone-mockup{
-  width:300px;
-  position:relative;
-  filter:drop-shadow(0 30px 60px rgba(124,58,237,0.3)) drop-shadow(0 0 80px rgba(124,58,237,0.1));
-}
-
-/* The actual phone frame — CSS only, matching the purple iPhone image */
-.phone-frame{
-  width:300px;
-  background:linear-gradient(160deg,#6b3fa0 0%,#3d2060 50%,#2a1545 100%);
-  border-radius:50px;
-  padding:5px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.15),
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    inset 0 -1px 0 rgba(0,0,0,0.4),
-    0 40px 80px rgba(0,0,0,0.8);
-  position:relative;
-}
-
-/* Side volume buttons */
-.phone-frame::before{
-  content:'';position:absolute;
-  left:-4px;top:110px;
-  width:4px;height:32px;
-  background:linear-gradient(180deg,#5a3480,#3d2060);
-  border-radius:2px 0 0 2px;
-  box-shadow:0 44px 0 #5a3480;
-}
-/* Power button */
-.phone-frame::after{
-  content:'';position:absolute;
-  right:-4px;top:150px;
-  width:4px;height:55px;
-  background:linear-gradient(180deg,#5a3480,#3d2060);
-  border-radius:0 2px 2px 0;
-}
-
-.phone-inner{
-  background:#0a0010;
-  border-radius:46px;
-  overflow:hidden;
-  position:relative;
-}
-
-/* Dynamic Island */
-.dynamic-island{
-  position:absolute;top:10px;left:50%;transform:translateX(-50%);
-  width:110px;height:32px;
-  background:#000;border-radius:18px;
-  z-index:20;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 10px;
-}
-.di-dot{width:10px;height:10px;background:#111;border-radius:50%;border:1px solid #1a1a1a;}
-.di-dot::after{content:'';display:block;width:5px;height:5px;background:radial-gradient(circle,#1e4080,#000);border-radius:50%;margin:2px;}
-.di-bar{width:52px;height:5px;background:#111;border-radius:4px;}
-
-/* Status bar */
-.status-bar{
-  position:absolute;top:0;left:0;right:0;
-  padding:14px 22px 0;
-  display:flex;justify-content:space-between;align-items:center;
-  z-index:15;
-}
-.s-time{color:white;font-size:14px;font-weight:700;letter-spacing:-0.3px;}
-.s-icons{display:flex;align-items:center;gap:4px;}
-.s-icons span{color:white;font-size:10px;}
-.bat{width:20px;height:10px;border:1.5px solid rgba(255,255,255,0.6);border-radius:3px;padding:1.5px;position:relative;}
-.bat::after{content:'';position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:2px;height:4px;background:rgba(255,255,255,0.4);border-radius:0 1px 1px 0;}
-.bat-fill{height:100%;width:72%;background:#a855f7;border-radius:1px;}
-
-/* Screen */
-.screen{
-  width:100%;height:600px;
-  background:#050008;
-  position:relative;overflow:hidden;
-}
-
-/* Animated background */
-.screen-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 50% 30%, rgba(124,58,237,0.25) 0%, transparent 60%),
-    radial-gradient(ellipse at 20% 80%, rgba(168,85,247,0.1) 0%, transparent 50%);
-  animation:bgPulse 4s ease-in-out infinite;
-}
-@keyframes bgPulse{0%,100%{opacity:0.8}50%{opacity:1}}
-
-/* Grid lines bg */
-.screen-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px);
-  background-size:24px 24px;
-}
-
-/* ===== ROBOT ===== */
-.robot-container{
-  position:absolute;top:60px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;
-  z-index:10;
-}
-
-/* Robot body */
-.robot{animation:robotFloat 3s ease-in-out infinite;}
-@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-
-/* Robot head */
-.r-head{
-  width:80px;height:74px;
-  background:linear-gradient(160deg,#1a0a2e,#0d0118);
-  border:2px solid rgba(168,85,247,0.5);
-  border-radius:20px;
-  position:relative;
-  margin:0 auto;
-  box-shadow:0 0 20px rgba(168,85,247,0.3),inset 0 1px 0 rgba(255,255,255,0.05);
-}
-/* Antenna */
-.r-head::before{
-  content:'';position:absolute;
-  top:-18px;left:50%;transform:translateX(-50%);
-  width:2px;height:14px;background:linear-gradient(180deg,#a855f7,rgba(168,85,247,0.3));
-  border-radius:1px;
-}
-.r-head::after{
-  content:'';position:absolute;
-  top:-22px;left:50%;transform:translateX(-50%);
-  width:8px;height:8px;
-  background:#a855f7;border-radius:50%;
-  box-shadow:0 0 10px #a855f7,0 0 20px rgba(168,85,247,0.5);
-  animation:antennaPulse 1.5s ease-in-out infinite;
-}
-@keyframes antennaPulse{0%,100%{box-shadow:0 0 8px #a855f7}50%{box-shadow:0 0 20px #a855f7,0 0 40px rgba(168,85,247,0.4)}}
-
-/* Eyes */
-.r-eyes{
-  display:flex;gap:12px;justify-content:center;
-  padding-top:18px;
-}
-.r-eye{
-  width:20px;height:20px;
-  background:linear-gradient(135deg,#7c3aed,#a855f7);
-  border-radius:50%;
-  position:relative;
-  box-shadow:0 0 10px rgba(168,85,247,0.6);
-  animation:eyeBlink 4s ease-in-out infinite;
-}
-@keyframes eyeBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
-.r-eye::after{
-  content:'';position:absolute;
-  top:4px;left:4px;
-  width:8px;height:8px;
-  background:white;border-radius:50%;opacity:0.8;
-  animation:eyeMove 3s ease-in-out infinite;
-}
-@keyframes eyeMove{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-1px)}50%{transform:translate(0,2px)}75%{transform:translate(-2px,0)}}
-
-/* Mouth */
-.r-mouth{
-  width:32px;height:6px;
-  background:linear-gradient(90deg,transparent,rgba(168,85,247,0.8),transparent);
-  margin:8px auto 0;
-  border-radius:3px;
-  position:relative;
-  overflow:hidden;
-}
-.r-mouth-wave{
-  position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent 0%,#a855f7 30%,#c084fc 50%,#a855f7 70%,transparent 100%);
-  animation:mouthWave 0.4s linear infinite;
-}
-@keyframes mouthWave{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.r-mouth.idle .r-mouth-wave{animation:none;background:rgba(168,85,247,0.3);}
-
-/* Ear pieces */
-.r-ears{
-  display:flex;justify-content:space-between;
-  width:90px;margin:-52px auto 0;position:relative;z-index:-1;
-}
-.r-ear{
-  width:10px;height:24px;
-  background:rgba(168,85,247,0.3);
-  border:1px solid rgba(168,85,247,0.4);
-  border-radius:4px;
-}
-
-/* Robot body/chest */
-.r-body{
-  width:68px;height:50px;
-  background:linear-gradient(160deg,#1a0a2e,#0d0118);
-  border:2px solid rgba(124,58,237,0.4);
-  border-radius:14px;
-  margin:4px auto 0;
-  display:flex;align-items:center;justify-content:center;
-  gap:8px;
-  position:relative;
-  box-shadow:0 0 15px rgba(124,58,237,0.2);
-}
-.r-chest-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:rgba(168,85,247,0.6);
-  box-shadow:0 0 8px rgba(168,85,247,0.5);
-  animation:chestPulse 1.5s ease-in-out infinite;
-}
-.r-chest-dot:nth-child(2){animation-delay:0.3s;background:rgba(99,102,241,0.7);}
-.r-chest-dot:nth-child(3){animation-delay:0.6s;}
-@keyframes chestPulse{0%,100%{opacity:0.4;transform:scale(0.9)}50%{opacity:1;transform:scale(1.1)}}
-
-/* Sound waves when speaking */
-.sound-waves{
-  position:absolute;
-  display:flex;align-items:center;gap:3px;
-  right:-30px;top:50%;transform:translateY(-50%);
-  opacity:0;transition:opacity 0.3s;
-}
-.sound-waves.active{opacity:1;}
-.sw-bar{
-  width:3px;background:#a855f7;border-radius:2px;
-  animation:swWave 0.5s ease-in-out infinite;
-}
-.sw-bar:nth-child(1){height:8px;animation-delay:0s;}
-.sw-bar:nth-child(2){height:16px;animation-delay:0.1s;}
-.sw-bar:nth-child(3){height:12px;animation-delay:0.2s;}
-.sw-bar:nth-child(4){height:20px;animation-delay:0.05s;}
-.sw-bar:nth-child(5){height:10px;animation-delay:0.15s;}
-@keyframes swWave{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1)}}
-
-/* Speech bubble */
-.speech-bubble{
-  position:absolute;
-  top:50px;right:-10px;left:-10px;
-  background:rgba(10,0,20,0.9);
-  border:1px solid rgba(168,85,247,0.3);
-  border-radius:16px;
-  padding:12px 14px;
-  font-size:11.5px;
-  color:rgba(255,255,255,0.9);
-  line-height:1.6;
-  max-height:120px;overflow-y:auto;
-  opacity:0;transition:opacity 0.4s;
-  z-index:20;
-  backdrop-filter:blur(10px);
-}
-.speech-bubble.show{opacity:1;}
-.speech-bubble::-webkit-scrollbar{width:3px;}
-.speech-bubble::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:2px;}
-
-/* Bottom controls */
-.phone-controls{
-  position:absolute;bottom:0;left:0;right:0;
-  background:rgba(5,0,10,0.95);
-  backdrop-filter:blur(20px);
-  border-top:1px solid rgba(168,85,247,0.15);
-  padding:14px 12px 28px;
-  z-index:15;
-}
-
-/* Monument selector */
-.monuments-scroll{
-  display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;
-  scrollbar-width:none;
-}
-.monuments-scroll::-webkit-scrollbar{display:none;}
-.m-chip{
-  flex-shrink:0;
-  padding:5px 11px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;
-  font-size:10px;color:rgba(255,255,255,0.6);
-  cursor:pointer;transition:all 0.2s;white-space:nowrap;
-}
-.m-chip.active,.m-chip:hover{
-  background:rgba(124,58,237,0.3);
-  border-color:#a855f7;color:white;
-}
-
-/* Language selector */
-.phone-langs{display:flex;gap:6px;margin-bottom:10px;}
-.ph-lang{
-  flex:1;padding:6px 4px;text-align:center;
-  border-radius:10px;font-size:11px;font-weight:600;
-  cursor:pointer;border:none;transition:all 0.2s;
-  background:rgba(255,255,255,0.05);
-  color:rgba(255,255,255,0.5);
-  border:1px solid rgba(255,255,255,0.08);
-}
-.ph-lang.active{
-  background:linear-gradient(135deg,#7c3aed,#a855f7);
-  color:white;border-color:transparent;
-}
-
-/* Speak button */
-.speak-btn{
-  width:100%;padding:11px;
-  background:linear-gradient(135deg,#7c3aed,#a855f7);
-  border:none;border-radius:14px;
-  color:white;font-size:13px;font-weight:700;
-  cursor:pointer;transition:all 0.2s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  box-shadow:0 4px 20px rgba(124,58,237,0.4);
-}
-.speak-btn:hover{transform:scale(1.02);box-shadow:0 6px 25px rgba(124,58,237,0.5);}
-.speak-btn:active{transform:scale(0.98);}
-.speak-btn.speaking{
-  background:linear-gradient(135deg,#dc2626,#ef4444);
-  box-shadow:0 4px 20px rgba(220,38,38,0.4);
-  animation:speakPulse 0.5s ease-in-out infinite;
-}
-@keyframes speakPulse{0%,100%{box-shadow:0 4px 20px rgba(220,38,38,0.4)}50%{box-shadow:0 4px 30px rgba(220,38,38,0.7)}}
-
-/* Home indicator */
-.home-ind{width:100px;height:4px;background:rgba(255,255,255,0.2);border-radius:4px;margin:10px auto 0;}
-
-/* Typing cursor */
-.cursor{
-  display:inline-block;width:2px;height:12px;
-  background:#a855f7;border-radius:1px;
-  animation:cursorBlink 0.7s step-end infinite;vertical-align:middle;margin-left:1px;
-}
-@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
-
-/* Right panel - Info display - ochiq rangda */
-.right-panel{
-  flex:1;
-  animation:slideRight 0.8s ease 0.2s both;
-}
-.r-panel-title{
-  font-size:13px;font-weight:600;letter-spacing:2px;
-  color:#3b82f6;text-transform:uppercase;
-  margin-bottom:12px;
-}
-.monument-info-card{
-  background:white;
-  border:1px solid rgba(59,130,246,0.2);
-  border-radius:20px;
-  padding:20px;
-  min-height:300px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
-}
-.monument-img{
-  width:100%;height:140px;object-fit:cover;border-radius:12px;
-  margin-bottom:14px;
-  border:1px solid rgba(59,130,246,0.2);
-}
-.m-name{font-size:20px;font-weight:700;color:#1f2937;margin-bottom:6px;}
-.m-loc{font-size:12px;color:#3b82f6;margin-bottom:10px;display:flex;align-items:center;gap:4px;}
-.m-desc-text{
-  font-size:12.5px;color:#4b5563;line-height:1.7;
-  min-height:80px;
-}
-.m-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
-.m-tag{
-  padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;
-  background:#eff6ff;color:#3b82f6;
-  border:1px solid rgba(59,130,246,0.2);
-}
-
-/* Responsive */
-@media(max-width:900px){
-  .scene{flex-direction:column;align-items:center;}
-  .info-panel,.right-panel{display:none;}
-}
-</style>
-    <style>
-
-        * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fef3c7 100%); overflow-x: hidden; }
+        /* Your existing CSS styles remain exactly the same */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+        body{min-height:100vh;background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 50%,#fef3c7 100%);display:flex;align-items:center;justify-content:center;overflow-x:hidden;padding:20px;}
+        .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;}
+        .p{position:absolute;border-radius:50%;animation:float linear infinite;}
+        @keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}20%{opacity:0.6}80%{opacity:0.3}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+        .scene{display:flex;align-items:center;gap:60px;max-width:1300px;width:100%;}
+        .info-panel{flex:1;display:flex;flex-direction:column;gap:20px;animation:slideLeft 0.8s ease;}
+        @keyframes slideLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+        .lang-title{font-size:13px;font-weight:600;letter-spacing:3px;color:#3b82f6;text-transform:uppercase;}
+        .main-title{font-size:36px;font-weight:800;line-height:1.2;background:linear-gradient(135deg,#1e40af 0%,#7c3aed 50%,#db2777 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .main-sub{color:#4b5563;font-size:14px;line-height:1.6;}
+        .lang-btns{display:flex;gap:8px;flex-wrap:wrap;}
+        .lang-btn{padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.3s;background:rgba(255,255,255,0.8);border:1px solid rgba(59,130,246,0.2);color:#374151;}
+        .lang-btn.active{background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-color:transparent;color:white;box-shadow:0 4px 15px rgba(59,130,246,0.3);}
+        .lang-btn:hover:not(.active){background:white;border-color:#3b82f6;}
+        .monument-cards{display:flex;flex-direction:column;gap:10px;}
+        .m-card{background:white;border:1px solid rgba(59,130,246,0.15);border-radius:14px;padding:12px 16px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+        .m-card:hover,.m-card.active{background:#eff6ff;border-color:#3b82f6;transform:translateX(4px);box-shadow:0 8px 20px rgba(59,130,246,0.15);}
+        .m-card.active{border-color:#8b5cf6;background:#f5f3ff;}
+        .m-icon{font-size:24px;flex-shrink:0;}
+        .m-info h4{font-size:13px;font-weight:600;color:#1f2937;}
+        .m-info p{font-size:11px;color:#6b7280;}
+        .phone-wrap{flex-shrink:0;position:relative;width:300px;animation:slideRight 0.8s ease;}
+        @keyframes slideRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+        .phone-frame{width:300px;background:linear-gradient(160deg,#6b3fa0 0%,#3d2060 50%,#2a1545 100%);border-radius:50px;padding:5px;box-shadow:0 0 0 1px rgba(255,255,255,0.15),inset 0 1px 0 rgba(255,255,255,0.2),inset 0 -1px 0 rgba(0,0,0,0.4),0 40px 80px rgba(0,0,0,0.8);position:relative;}
+        .phone-frame::before{content:'';position:absolute;left:-4px;top:110px;width:4px;height:32px;background:linear-gradient(180deg,#5a3480,#3d2060);border-radius:2px 0 0 2px;box-shadow:0 44px 0 #5a3480;}
+        .phone-frame::after{content:'';position:absolute;right:-4px;top:150px;width:4px;height:55px;background:linear-gradient(180deg,#5a3480,#3d2060);border-radius:0 2px 2px 0;}
+        .phone-inner{background:#0a0010;border-radius:46px;overflow:hidden;position:relative;}
+        .dynamic-island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:110px;height:32px;background:#000;border-radius:18px;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 10px;}
+        .di-dot{width:10px;height:10px;background:#111;border-radius:50%;border:1px solid #1a1a1a;}
+        .di-dot::after{content:'';display:block;width:5px;height:5px;background:radial-gradient(circle,#1e4080,#000);border-radius:50%;margin:2px;}
+        .di-bar{width:52px;height:5px;background:#111;border-radius:4px;}
+        .status-bar{position:absolute;top:0;left:0;right:0;padding:14px 22px 0;display:flex;justify-content:space-between;align-items:center;z-index:15;}
+        .s-time{color:white;font-size:14px;font-weight:700;letter-spacing:-0.3px;}
+        .s-icons{display:flex;align-items:center;gap:4px;}
+        .s-icons span{color:white;font-size:10px;}
+        .bat{width:20px;height:10px;border:1.5px solid rgba(255,255,255,0.6);border-radius:3px;padding:1.5px;position:relative;}
+        .bat::after{content:'';position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:2px;height:4px;background:rgba(255,255,255,0.4);border-radius:0 1px 1px 0;}
+        .bat-fill{height:100%;width:72%;background:#a855f7;border-radius:1px;}
+        .screen{width:100%;height:600px;background:#050008;position:relative;overflow:hidden;}
+        .screen-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%, rgba(124,58,237,0.25) 0%, transparent 60%),radial-gradient(ellipse at 20% 80%, rgba(168,85,247,0.1) 0%, transparent 50%);animation:bgPulse 4s ease-in-out infinite;}
+        @keyframes bgPulse{0%,100%{opacity:0.8}50%{opacity:1}}
+        .screen-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px),linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px);background-size:24px 24px;}
+        .robot-container{position:absolute;top:60px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:10;}
+        .robot{animation:robotFloat 3s ease-in-out infinite;}
+        @keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .r-head{width:80px;height:74px;background:linear-gradient(160deg,#1a0a2e,#0d0118);border:2px solid rgba(168,85,247,0.5);border-radius:20px;position:relative;margin:0 auto;box-shadow:0 0 20px rgba(168,85,247,0.3),inset 0 1px 0 rgba(255,255,255,0.05);}
+        .r-head::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:2px;height:14px;background:linear-gradient(180deg,#a855f7,rgba(168,85,247,0.3));border-radius:1px;}
+        .r-head::after{content:'';position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:#a855f7;border-radius:50%;box-shadow:0 0 10px #a855f7,0 0 20px rgba(168,85,247,0.5);animation:antennaPulse 1.5s ease-in-out infinite;}
+        @keyframes antennaPulse{0%,100%{box-shadow:0 0 8px #a855f7}50%{box-shadow:0 0 20px #a855f7,0 0 40px rgba(168,85,247,0.4)}}
+        .r-eyes{display:flex;gap:12px;justify-content:center;padding-top:18px;}
+        .r-eye{width:20px;height:20px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:50%;position:relative;box-shadow:0 0 10px rgba(168,85,247,0.6);animation:eyeBlink 4s ease-in-out infinite;}
+        @keyframes eyeBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
+        .r-eye::after{content:'';position:absolute;top:4px;left:4px;width:8px;height:8px;background:white;border-radius:50%;opacity:0.8;animation:eyeMove 3s ease-in-out infinite;}
+        @keyframes eyeMove{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-1px)}50%{transform:translate(0,2px)}75%{transform:translate(-2px,0)}}
+        .r-mouth{width:32px;height:6px;background:linear-gradient(90deg,transparent,rgba(168,85,247,0.8),transparent);margin:8px auto 0;border-radius:3px;position:relative;overflow:hidden;}
+        .r-mouth-wave{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,#a855f7 30%,#c084fc 50%,#a855f7 70%,transparent 100%);animation:mouthWave 0.4s linear infinite;}
+        @keyframes mouthWave{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+        .r-mouth.idle .r-mouth-wave{animation:none;background:rgba(168,85,247,0.3);}
+        .r-ears{display:flex;justify-content:space-between;width:90px;margin:-52px auto 0;position:relative;z-index:-1;}
+        .r-ear{width:10px;height:24px;background:rgba(168,85,247,0.3);border:1px solid rgba(168,85,247,0.4);border-radius:4px;}
+        .r-body{width:68px;height:50px;background:linear-gradient(160deg,#1a0a2e,#0d0118);border:2px solid rgba(124,58,237,0.4);border-radius:14px;margin:4px auto 0;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;box-shadow:0 0 15px rgba(124,58,237,0.2);}
+        .r-chest-dot{width:10px;height:10px;border-radius:50%;background:rgba(168,85,247,0.6);box-shadow:0 0 8px rgba(168,85,247,0.5);animation:chestPulse 1.5s ease-in-out infinite;}
+        .r-chest-dot:nth-child(2){animation-delay:0.3s;background:rgba(99,102,241,0.7);}
+        .r-chest-dot:nth-child(3){animation-delay:0.6s;}
+        @keyframes chestPulse{0%,100%{opacity:0.4;transform:scale(0.9)}50%{opacity:1;transform:scale(1.1)}}
+        .sound-waves{position:absolute;display:flex;align-items:center;gap:3px;right:-30px;top:50%;transform:translateY(-50%);opacity:0;transition:opacity 0.3s;}
+        .sound-waves.active{opacity:1;}
+        .sw-bar{width:3px;background:#a855f7;border-radius:2px;animation:swWave 0.5s ease-in-out infinite;}
+        .sw-bar:nth-child(1){height:8px;animation-delay:0s;}
+        .sw-bar:nth-child(2){height:16px;animation-delay:0.1s;}
+        .sw-bar:nth-child(3){height:12px;animation-delay:0.2s;}
+        .sw-bar:nth-child(4){height:20px;animation-delay:0.05s;}
+        .sw-bar:nth-child(5){height:10px;animation-delay:0.15s;}
+        @keyframes swWave{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1)}}
+        .speech-bubble{position:absolute;top:50px;right:-10px;left:-10px;background:rgba(10,0,20,0.9);border:1px solid rgba(168,85,247,0.3);border-radius:16px;padding:12px 14px;font-size:11.5px;color:rgba(255,255,255,0.9);line-height:1.6;max-height:120px;overflow-y:auto;opacity:0;transition:opacity 0.4s;z-index:20;backdrop-filter:blur(10px);}
+        .speech-bubble.show{opacity:1;}
+        .speech-bubble::-webkit-scrollbar{width:3px;}
+        .speech-bubble::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:2px;}
+        .phone-controls{position:absolute;bottom:0;left:0;right:0;background:rgba(5,0,10,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(168,85,247,0.15);padding:14px 12px 28px;z-index:15;}
+        .monuments-scroll{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none;}
+        .monuments-scroll::-webkit-scrollbar{display:none;}
+        .m-chip{flex-shrink:0;padding:5px 11px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;font-size:10px;color:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+        .m-chip.active,.m-chip:hover{background:rgba(124,58,237,0.3);border-color:#a855f7;color:white;}
+        .phone-langs{display:flex;gap:6px;margin-bottom:10px;}
+        .ph-lang{flex:1;padding:6px 4px;text-align:center;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.08);}
+        .ph-lang.active{background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;border-color:transparent;}
+        .speak-btn{width:100%;padding:11px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:14px;color:white;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(124,58,237,0.4);}
+        .speak-btn:hover{transform:scale(1.02);box-shadow:0 6px 25px rgba(124,58,237,0.5);}
+        .speak-btn:active{transform:scale(0.98);}
+        .speak-btn.speaking{background:linear-gradient(135deg,#dc2626,#ef4444);box-shadow:0 4px 20px rgba(220,38,38,0.4);animation:speakPulse 0.5s ease-in-out infinite;}
+        @keyframes speakPulse{0%,100%{box-shadow:0 4px 20px rgba(220,38,38,0.4)}50%{box-shadow:0 4px 30px rgba(220,38,38,0.7)}}
+        .home-ind{width:100px;height:4px;background:rgba(255,255,255,0.2);border-radius:4px;margin:10px auto 0;}
+        .cursor{display:inline-block;width:2px;height:12px;background:#a855f7;border-radius:1px;animation:cursorBlink 0.7s step-end infinite;vertical-align:middle;margin-left:1px;}
+        @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+        .right-panel{flex:1;animation:slideRight 0.8s ease 0.2s both;}
+        .r-panel-title{font-size:13px;font-weight:600;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;margin-bottom:12px;}
+        .monument-info-card{background:white;border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:20px;min-height:300px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+        .monument-img{width:100%;height:140px;object-fit:cover;border-radius:12px;margin-bottom:14px;border:1px solid rgba(59,130,246,0.2);}
+        .m-name{font-size:20px;font-weight:700;color:#1f2937;margin-bottom:6px;}
+        .m-loc{font-size:12px;color:#3b82f6;margin-bottom:10px;display:flex;align-items:center;gap:4px;}
+        .m-desc-text{font-size:12.5px;color:#4b5563;line-height:1.7;min-height:80px;}
+        .m-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+        .m-tag{padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;background:#eff6ff;color:#3b82f6;border:1px solid rgba(59,130,246,0.2);}
+        @media(max-width:900px){.scene{flex-direction:column;align-items:center;}.info-panel,.right-panel{display:none;}}
         
-        .glass-premium {
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(59,130,246,0.2);
-            border-radius: 2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        .glass-premium:hover {
-            background: white;
-            border-color: #3b82f6;
-            box-shadow: 0 15px 35px rgba(59,130,246,0.15);
-            transform: translateY(-4px);
-        }
-        .glass-card {
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59,130,246,0.15);
-            border-radius: 1.5rem;
-        }
-        .hero-bg {
-            background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #fce7f3 100%);
-            position: relative;
-            border-radius: 2rem;
-            margin: 0 1rem;
-        }
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://images.unsplash.com/photo-1532974297617-c0f05fe6bff4?w=1600') center/cover;
-            opacity: 0.08;
-            pointer-events: none;
-            border-radius: 2rem;
-        }
-        .nav-link { transition: all 0.2s ease; position: relative; color: #1f2937; }
-        .nav-link:hover { color: #3b82f6; transform: translateY(-2px); }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px; left: 0;
-            width: 0; height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s;
-        }
-        .nav-link:hover::after { width: 100%; }
-        .card-hover { transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.1); }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 35px rgba(59,130,246,0.15); }
-        .dest-card {
-            background: white;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 1px solid rgba(59,130,246,0.1);
-        }
-        .dest-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 40px rgba(59,130,246,0.2); border-color: #3b82f6; }
-        .dest-card img { width: 100%; height: 220px; object-fit: cover; transition: transform 0.6s; }
-        .dest-card:hover img { transform: scale(1.05); }
-        .service-card {
-            background: white;
-            border-radius: 1.2rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 1px solid rgba(59,130,246,0.1);
-        }
-        .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 30px rgba(59,130,246,0.15); border-color: #3b82f6; }
-        .service-card img { width: 100%; height: 180px; object-fit: cover; transition: transform 0.5s; }
-        .service-card:hover img { transform: scale(1.04); }
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-        }
-        .btn-primary:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(59,130,246,0.4);
-        }
-        @media (max-width: 768px) { .mobile-menu { display: none; } .mobile-menu.open { display: block; } }
-        .spinner {
-            border: 3px solid rgba(59,130,246,0.2);
-            border-radius: 50%;
-            border-top: 3px solid #3b82f6;
-            width: 40px; height: 40px;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .map-container { border-radius: 1.5rem; overflow: hidden; border: 2px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 10px; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeInUp 0.6s ease forwards; }
-
-        /* ======== MOBILE APP PANEL (asl holicha) ======== */
-        #mobileAppOverlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 40px;
-        }
-        #mobileAppOverlay.show { display: flex; animation: overlayIn 0.35s ease; }
-        @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* iPhone 17 Pro Max frame (asl holicha) */
-        .iphone-wrap {
-            animation: slideInRight 0.45s cubic-bezier(0.2,0.9,0.4,1.1);
-            position: relative;
-        }
-        @keyframes slideInRight { from { transform: translateX(120px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-        .iphone-outer {
-            width: 940px;
-            background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 40%, #111 100%);
-            border-radius: 52px;
-            padding: 6px;
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 0 0 3px rgba(0,0,0,0.9), 0 0 0 4px rgba(255,255,255,0.06), 0 40px 80px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.5);
-            position: relative;
-        }
-        .iphone-outer::before {
-            content: '';
-            position: absolute;
-            left: -4px; top: 100px;
-            width: 4px; height: 36px;
-            background: linear-gradient(180deg, #333, #222);
-            border-radius: 2px 0 0 2px;
-            box-shadow: 0 50px 0 #2a2a2a, 0 100px 0 #2a2a2a;
-        }
-        .iphone-outer::after {
-            content: '';
-            position: absolute;
-            right: -4px; top: 140px;
-            width: 4px; height: 60px;
-            background: linear-gradient(180deg, #333, #222);
-            border-radius: 0 2px 2px 0;
-        }
-        .iphone-inner {
-            background: #000;
-            border-radius: 47px;
-            overflow: hidden;
-            position: relative;
-        }
-        .dynamic-island {
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px; height: 34px;
-            background: #000;
-            border-radius: 20px;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-        }
-        .di-camera {
-            width: 12px; height: 12px;
-            background: #111;
-            border-radius: 50%;
-            border: 1px solid #1a1a1a;
-            position: relative;
-        }
-        .di-camera::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            background: radial-gradient(circle, #1e3a5f, #0a1628);
-            border-radius: 50%;
-        }
-        .di-speaker {
-            width: 60px; height: 6px;
-            background: #111;
-            border-radius: 10px;
-        }
-        .phone-screen {
-            width: 100%;
-            height: 640px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-        }
-        .phone-bg {
-            position: absolute;
-            inset: 0;
-            background-image: url('https://images.unsplash.com/photo-1590041794689-e7f0ac4b0f90?w=600&q=80');
-            background-size: cover;
-            background-position: center bottom;
-        }
-        .phone-bg-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,5,20,0.3) 35%, rgba(0,5,20,0.65) 65%, rgba(0,0,0,0.95) 100%);
-        }
-        .status-bar {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            padding: 14px 24px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 5;
-        }
-        .status-time { color: white; font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
-        .status-icons { display: flex; align-items: center; gap: 5px; }
-        .status-icons i { color: white; font-size: 11px; }
-        .battery-bar {
-            width: 22px; height: 11px;
-            border: 1.5px solid rgba(255,255,255,0.7);
-            border-radius: 3px;
-            padding: 1.5px;
-            position: relative;
-        }
-        .battery-bar::after {
-            content: '';
-            position: absolute;
-            right: -4px; top: 50%;
-            transform: translateY(-50%);
-            width: 2px; height: 5px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 0 1px 1px 0;
-        }
-        .battery-fill { height: 100%; width: 75%; background: #34d399; border-radius: 1px; }
-        .app-header {
-            position: absolute;
-            top: 56px; left: 0; right: 0;
-            padding: 0 20px;
-            z-index: 5;
-        }
-        .app-logo-row { display: flex; align-items: center; gap: 10px; }
-        .app-logo-icon {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px;
-        }
-        .app-logo-text { color: white; font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
-        .app-subtitle { color: rgba(255,255,255,0.6); font-size: 11px; }
-        .location-chip {
-            position: absolute;
-            bottom: 210px; left: 20px;
-            background: rgba(0,0,0,0.55);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
-            padding: 6px 14px;
-            display: flex; align-items: center; gap: 6px;
-            z-index: 5;
-        }
-        .location-chip span { color: white; font-size: 12px; font-weight: 500; }
-        .loc-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; }
-        .phone-bottom {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.08);
-            border-radius: 0 0 40px 40px;
-            padding: 14px 16px 30px;
-            z-index: 5;
-        }
-        .ai-badge {
-            display: flex; align-items: center; gap: 8px;
-            margin-bottom: 12px;
-        }
-        .ai-avatar-sm {
-            width: 28px; height: 28px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; color: white;
-            animation: aiPulse 2.5s infinite;
-        }
-        @keyframes aiPulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
-            50% { box-shadow: 0 0 0 6px rgba(59,130,246,0); }
-        }
-        .ai-name { color: white; font-size: 13px; font-weight: 600; }
-        .ai-status { color: #34d399; font-size: 10px; margin-left: auto; display: flex; align-items: center; gap: 4px; }
-        .ai-status::before { content: ''; display: inline-block; width: 5px; height: 5px; background: #34d399; border-radius: 50%; }
-        .chat-msgs { margin-bottom: 10px; display: flex; flex-direction: column; gap: 6px; }
-        .chat-bubble-ai {
-            background: rgba(59,130,246,0.18);
-            border: 1px solid rgba(59,130,246,0.25);
-            border-radius: 14px 14px 14px 4px;
-            padding: 8px 12px;
-            color: rgba(255,255,255,0.9);
-            font-size: 12px;
-            line-height: 1.5;
-            max-width: 85%;
-        }
-        .chat-bubble-user {
-            background: linear-gradient(135deg, #3b82f6, #6d28d9);
-            border-radius: 14px 14px 4px 14px;
-            padding: 8px 12px;
-            color: white;
-            font-size: 12px;
-            line-height: 1.5;
-            max-width: 80%;
-            align-self: flex-end;
-        }
-        .typing-dots { display: flex; gap: 3px; padding: 2px 0; }
-        .typing-dots span {
-            width: 5px; height: 5px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 50%;
-            animation: typeBounce 1.2s infinite;
-        }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typeBounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-5px)} }
-        .chat-input-row {
-            display: flex; gap: 8px; align-items: center;
-        }
-        .phone-input {
-            flex: 1;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 22px;
-            padding: 9px 14px;
-            color: white;
-            font-size: 12px;
-            outline: none;
-        }
-        .phone-input::placeholder { color: rgba(255,255,255,0.35); }
-        .phone-send {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, #3b82f6, #6d28d9);
-            border: none; border-radius: 50%;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 13px;
-            transition: opacity 0.2s;
-        }
-        .phone-send:hover { opacity: 0.8; }
-        .phone-mic {
-            width: 36px; height: 36px;
-            background: rgba(16,185,129,0.2);
-            border: 1px solid rgba(16,185,129,0.4);
-            border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-        .phone-mic:hover { background: rgba(16,185,129,0.35); }
-        .quick-actions {
-            display: grid; grid-template-columns: repeat(4,1fr); gap: 6px;
-            margin-bottom: 10px;
-        }
-        .q-btn {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 7px 4px;
-            cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 3px;
-            transition: background 0.2s;
-        }
-        .q-btn:hover { background: rgba(59,130,246,0.2); }
-        .q-btn .q-icon { font-size: 15px; }
-        .q-btn .q-label { color: rgba(255,255,255,0.6); font-size: 9px; text-align: center; }
-        .close-overlay-btn {
-            position: absolute;
-            top: 20px; right: 20px;
-            width: 36px; height: 36px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 16px;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-        .close-overlay-btn:hover { background: rgba(255,255,255,0.2); }
-        .home-indicator {
-            width: 120px; height: 4px;
-            background: rgba(255,255,255,0.25);
-            border-radius: 4px;
-            margin: 6px auto 0;
-        }
-        .store-btns {
-            display: flex; gap: 8px;
-            margin-top: 18px;
-            justify-content: center;
-        }
-        .store-btn {
-            display: flex; align-items: center; gap: 7px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            padding: 8px 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .store-btn:hover { background: rgba(255,255,255,0.14); }
-        .store-btn i { font-size: 20px; color: white; }
-        .store-text { display: flex; flex-direction: column; }
-        .store-small { color: rgba(255,255,255,0.5); font-size: 9px; }
-        .store-name { color: white; font-size: 13px; font-weight: 600; }
-        .camera-hint {
-            position: absolute;
-            top: -10px; right: 20px;
-            display: flex; gap: 4px; align-items: center;
-        }
-        .lens {
-            width: 10px; height: 10px;
-            background: radial-gradient(circle, #222, #111);
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: inset 0 0 3px rgba(59,130,246,0.3);
-        }
-
-        /* ===== BOOKING MODAL - OCHIQ DIZAYN ===== */
-        .booking-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .booking-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-container {
-            background: white;
-            border-radius: 2rem;
-            width: 90%;
-            max-width: 480px;
-            position: relative;
-            animation: modalSlideDown 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        @keyframes modalSlideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        .modal-header {
-            padding: 1.2rem 1.5rem 0.8rem 1.5rem;
-            border-bottom: 2px solid #eef2ff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-        }
-        .modal-header h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .modal-header h3 i {
-            background: none;
-            -webkit-text-fill-color: #3b82f6;
-            margin-right: 0.5rem;
-        }
-        .modal-close {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #f1f5f9;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        .modal-close:hover {
-            background: #fee2e2;
-            color: #ef4444;
-            transform: rotate(90deg);
-        }
-        .modal-body {
-            padding: 1.5rem;
-            background: white;
-        }
-        .item-info-modal {
-            display: flex;
-            gap: 1rem;
-            padding-bottom: 1.2rem;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #eef2ff;
-        }
-        .item-icon-modal {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #eff6ff, #f5f3ff);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-        .item-details-modal h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.2rem;
-        }
-        .item-details-modal p {
-            font-size: 0.8rem;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .form-group-modal {
-            margin-bottom: 1rem;
-        }
-        .form-group-modal label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 0.4rem;
-        }
-        .form-group-modal input, .form-group-modal select {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            background: #f8fafc;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 0.8rem;
-            color: #1e293b;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-        .form-group-modal input:focus, .form-group-modal select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-            background: white;
-        }
-        .modal-footer {
-            padding: 1rem 1.5rem 1.5rem 1.5rem;
-            display: flex;
-            gap: 1rem;
-            background: #f8fafc;
-            border-top: 1px solid #eef2ff;
-        }
-        .btn-cancel-modal {
-            flex: 1;
-            padding: 0.7rem;
-            background: white;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 0.8rem;
-            color: #64748b;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-cancel-modal:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-        }
-        .btn-confirm-modal {
-            flex: 1;
-            padding: 0.7rem;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border: none;
-            border-radius: 0.8rem;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(59,130,246,0.3);
-        }
-        .btn-confirm-modal:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59,130,246,0.4);
-        }
-        .toast-message {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            z-index: 10001;
-            transition: transform 0.3s ease;
-            font-size: 0.85rem;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(16,185,129,0.3);
-        }
-        .toast-message.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        /* Additional styles from second part */
+        .glass-premium{background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border:1px solid rgba(59,130,246,0.2);border-radius:2rem;transition:all 0.3s ease;box-shadow:0 8px 20px rgba(0,0,0,0.05);}
+        .glass-premium:hover{background:white;border-color:#3b82f6;box-shadow:0 15px 35px rgba(59,130,246,0.15);transform:translateY(-4px);}
+        .glass-card{background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);border:1px solid rgba(59,130,246,0.15);border-radius:1.5rem;}
+        .hero-bg{background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 50%,#fce7f3 100%);position:relative;border-radius:2rem;margin:0 1rem;}
+        .hero-bg::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('https://images.unsplash.com/photo-1532974297617-c0f05fe6bff4?w=1600') center/cover;opacity:0.08;pointer-events:none;border-radius:2rem;}
+        .nav-link{transition:all 0.2s ease;position:relative;color:#1f2937;}
+        .nav-link:hover{color:#3b82f6;transform:translateY(-2px);}
+        .nav-link::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:#3b82f6;transition:width 0.3s;}
+        .nav-link:hover::after{width:100%;}
+        .card-hover{transition:all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);}
+        .card-hover:hover{transform:translateY(-8px);box-shadow:0 20px 35px rgba(59,130,246,0.15);}
+        .dest-card{background:white;border-radius:1.5rem;overflow:hidden;transition:all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,0.05);border:1px solid rgba(59,130,246,0.1);}
+        .dest-card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 25px 40px rgba(59,130,246,0.2);border-color:#3b82f6;}
+        .dest-card img{width:100%;height:220px;object-fit:cover;transition:transform 0.6s;}
+        .dest-card:hover img{transform:scale(1.05);}
+        .service-card{background:white;border-radius:1.2rem;overflow:hidden;transition:all 0.3s ease;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid rgba(59,130,246,0.1);}
+        .service-card:hover{transform:translateY(-6px);box-shadow:0 20px 30px rgba(59,130,246,0.15);border-color:#3b82f6;}
+        .service-card img{width:100%;height:180px;object-fit:cover;transition:transform 0.5s;}
+        .service-card:hover img{transform:scale(1.04);}
+        .btn-primary{background:linear-gradient(135deg,#3b82f6,#8b5cf6);transition:all 0.3s;box-shadow:0 4px 12px rgba(59,130,246,0.3);}
+        .btn-primary:hover{transform:scale(1.03);box-shadow:0 8px 20px rgba(59,130,246,0.4);}
+        @media (max-width:768px){.mobile-menu{display:none;}.mobile-menu.open{display:block;}}
+        .spinner{border:3px solid rgba(59,130,246,0.2);border-radius:50%;border-top:3px solid #3b82f6;width:40px;height:40px;animation:spin 0.8s linear infinite;display:inline-block;}
+        @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+        .map-container{border-radius:1.5rem;overflow:hidden;border:2px solid white;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+        ::-webkit-scrollbar{width:8px;}
+        ::-webkit-scrollbar-track{background:#e2e8f0;border-radius:10px;}
+        ::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:10px;}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+        .animate-fade-in{animation:fadeInUp 0.6s ease forwards;}
+        #mobileAppOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:flex-end;padding-right:40px;}
+        #mobileAppOverlay.show{display:flex;animation:overlayIn 0.35s ease;}
+        @keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
+        .booking-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;visibility:hidden;transition:all 0.3s ease;}
+        .booking-modal.active{opacity:1;visibility:visible;}
+        .modal-container{background:white;border-radius:2rem;width:90%;max-width:480px;position:relative;animation:modalSlideDown 0.35s cubic-bezier(0.2,0.9,0.4,1.1);box-shadow:0 25px 50px rgba(0,0,0,0.2);overflow:hidden;}
+        @keyframes modalSlideDown{from{opacity:0;transform:translateY(-40px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+        .modal-header{padding:1.2rem 1.5rem 0.8rem 1.5rem;border-bottom:2px solid #eef2ff;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#f8fafc,#f1f5f9);}
+        .modal-header h3{font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .modal-header h3 i{background:none;-webkit-text-fill-color:#3b82f6;margin-right:0.5rem;}
+        .modal-close{width:36px;height:36px;border-radius:50%;background:#f1f5f9;border:none;color:#64748b;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+        .modal-close:hover{background:#fee2e2;color:#ef4444;transform:rotate(90deg);}
+        .modal-body{padding:1.5rem;background:white;}
+        .item-info-modal{display:flex;gap:1rem;padding-bottom:1.2rem;margin-bottom:1.2rem;border-bottom:2px solid #eef2ff;}
+        .item-icon-modal{width:56px;height:56px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:1rem;display:flex;align-items:center;justify-content:center;font-size:1.8rem;}
+        .item-details-modal h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin-bottom:0.2rem;}
+        .item-details-modal p{font-size:0.8rem;color:#64748b;display:flex;align-items:center;gap:0.3rem;}
+        .form-group-modal{margin-bottom:1rem;}
+        .form-group-modal label{display:block;font-size:0.75rem;font-weight:600;color:#475569;margin-bottom:0.4rem;}
+        .form-group-modal input,.form-group-modal select{width:100%;padding:0.7rem 1rem;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:0.8rem;color:#1e293b;font-size:0.9rem;transition:all 0.2s;}
+        .form-group-modal input:focus,.form-group-modal select:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1);background:white;}
+        .modal-footer{padding:1rem 1.5rem 1.5rem 1.5rem;display:flex;gap:1rem;background:#f8fafc;border-top:1px solid #eef2ff;}
+        .btn-cancel-modal{flex:1;padding:0.7rem;background:white;border:1.5px solid #e2e8f0;border-radius:0.8rem;color:#64748b;font-weight:600;cursor:pointer;transition:all 0.2s;}
+        .btn-cancel-modal:hover{background:#f1f5f9;border-color:#cbd5e1;}
+        .btn-confirm-modal{flex:1;padding:0.7rem;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:0.8rem;color:white;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 10px rgba(59,130,246,0.3);}
+        .btn-confirm-modal:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(59,130,246,0.4);}
+        .toast-message{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,#10b981,#059669);color:white;padding:0.8rem 1.5rem;border-radius:1rem;display:flex;align-items:center;gap:0.6rem;z-index:10001;transition:transform 0.3s ease;font-size:0.85rem;font-weight:500;box-shadow:0 10px 25px rgba(16,185,129,0.3);}
+        .toast-message.show{transform:translateX(-50%) translateY(0);}
     </style>
 </head>
 <body>
 
-    <!-- ======== MOBILE APP OVERLAY ======== -->
-    <div id="mobileAppOverlay">
-         <div>
+<div id="mobileAppOverlay"><div>
 
-<!-- Particles -->
 <div class="particles" id="particles"></div>
 
 <div class="scene">
-
-  <!-- Left: Monument selector -->
   <div class="info-panel">
     <div class="lang-title">AI Tarix Roboti</div>
     <h1 class="main-title">Tarixiy<br>Obidalar<br>AI Yordamchisi</h1>
-    <p class="main-sub">4 tilda ma'lumot beruvchi aqlli robot — O'zbekistonning buyuk tarixiy merosi haqida</p>
-
+    <p class="main-sub">10+ tilda ma'lumot beruvchi aqlli robot — O'zbekistonning buyuk tarixiy merosi haqida</p>
     <div class="lang-btns">
       <button class="lang-btn active" data-lang="uz">🇺🇿 O'zbek</button>
       <button class="lang-btn" data-lang="ru">🇷🇺 Русский</button>
       <button class="lang-btn" data-lang="en">🇬🇧 English</button>
       <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+      <button class="lang-btn" data-lang="ar">🇸🇦 العربية</button>
+      <button class="lang-btn" data-lang="fr">🇫🇷 Français</button>
+      <button class="lang-btn" data-lang="de">🇩🇪 Deutsch</button>
+      <button class="lang-btn" data-lang="es">🇪🇸 Español</button>
+      <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+      <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
     </div>
-
     <div class="monument-cards">
       <div class="m-card active" data-idx="0"><span class="m-icon">🕌</span><div class="m-info"><h4>Registon</h4><p>Samarqand • XV asr</p></div></div>
       <div class="m-card" data-idx="1"><span class="m-icon">🗼</span><div class="m-info"><h4>Minorai Kalon</h4><p>Buxoro • XII asr</p></div></div>
@@ -1126,99 +212,30 @@ body{
     </div>
   </div>
 
-  <!-- CENTER: Phone -->
   <div class="phone-wrap">
     <div class="phone-frame">
       <div class="phone-inner">
-        <!-- Dynamic Island -->
-        <div class="dynamic-island">
-          <div class="di-dot"></div>
-          <div class="di-bar"></div>
-        </div>
-
-        <!-- Status bar -->
-        <div class="status-bar">
-          <span class="s-time">9:41</span>
-          <div style="width:110px;"></div>
-          <div class="s-icons">
-            <span>▲▲▲</span>
-            <span>WiFi</span>
-            <div class="bat"><div class="bat-fill"></div></div>
-          </div>
-        </div>
-
-        <!-- Screen content -->
+        <div class="dynamic-island"><div class="di-dot"></div><div class="di-bar"></div></div>
+        <div class="status-bar"><span class="s-time">9:41</span><div style="width:110px;"></div><div class="s-icons"><span>▲▲▲</span><span>WiFi</span><div class="bat"><div class="bat-fill"></div></div></div></div>
         <div class="screen">
-          <div class="screen-bg"></div>
-          <div class="screen-grid"></div>
-
-          <!-- Robot -->
+          <div class="screen-bg"></div><div class="screen-grid"></div>
           <div class="robot-container">
             <div class="robot" id="robot">
-              <!-- Ears -->
-              <div class="r-ears">
-                <div class="r-ear"></div>
-                <div class="r-ear"></div>
-              </div>
-              <!-- Head -->
-              <div class="r-head">
-                <div class="r-eyes">
-                  <div class="r-eye" id="eye1"></div>
-                  <div class="r-eye" id="eye2"></div>
-                </div>
-                <div class="r-mouth idle" id="rMouth"><div class="r-mouth-wave"></div></div>
-              </div>
-              <!-- Body -->
-              <div class="r-body">
-                <div class="r-chest-dot"></div>
-                <div class="r-chest-dot"></div>
-                <div class="r-chest-dot"></div>
-                <div class="sound-waves" id="soundWaves">
-                  <div class="sw-bar"></div>
-                  <div class="sw-bar"></div>
-                  <div class="sw-bar"></div>
-                  <div class="sw-bar"></div>
-                  <div class="sw-bar"></div>
-                </div>
-              </div>
+              <div class="r-ears"><div class="r-ear"></div><div class="r-ear"></div></div>
+              <div class="r-head"><div class="r-eyes"><div class="r-eye" id="eye1"></div><div class="r-eye" id="eye2"></div></div><div class="r-mouth idle" id="rMouth"><div class="r-mouth-wave"></div></div></div>
+              <div class="r-body"><div class="r-chest-dot"></div><div class="r-chest-dot"></div><div class="r-chest-dot"></div><div class="sound-waves" id="soundWaves"><div class="sw-bar"></div><div class="sw-bar"></div><div class="sw-bar"></div><div class="sw-bar"></div><div class="sw-bar"></div></div></div>
             </div>
-
-            <!-- Speech bubble -->
             <div class="speech-bubble" id="speechBubble"></div>
           </div>
-
-          <!-- Monument image on screen -->
           <div style="position:absolute;bottom:220px;left:12px;right:12px;border-radius:14px;overflow:hidden;height:140px;">
-            <img id="phoneImg" src="./images/image1.png"
-              style="width:100%;height:100%;object-fit:cover;opacity:0.85;">
+            <img id="phoneImg" src="./images/image1.png" style="width:100%;height:100%;object-fit:cover;opacity:0.85;">
             <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,0,10,0.7) 0%,transparent 60%);"></div>
-            <div style="position:absolute;bottom:8px;left:12px;">
-              <div style="color:white;font-size:13px;font-weight:700;" id="phoneImgName">Registon</div>
-              <div style="color:rgba(168,85,247,0.8);font-size:10px;">📍 Samarqand</div>
-            </div>
+            <div style="position:absolute;bottom:8px;left:12px;"><div style="color:white;font-size:13px;font-weight:700;" id="phoneImgName">Registon</div><div style="color:rgba(168,85,247,0.8);font-size:10px;">📍 Samarqand</div></div>
           </div>
-
-          <!-- Bottom controls -->
           <div class="phone-controls">
-            <div class="monuments-scroll" id="phoneMonuments">
-              <div class="m-chip active" data-idx="0">🕌 Registon</div>
-              <div class="m-chip" data-idx="1">🗼 Minorai Kalon</div>
-              <div class="m-chip" data-idx="2">🏰 Ichan Qal'a</div>
-              <div class="m-chip" data-idx="3">⛪ Bibi-Xonim</div>
-              <div class="m-chip" data-idx="4">🏛️ Ark Qal'asi</div>
-            </div>
-
-            <div class="phone-langs" id="phoneLangs">
-              <button class="ph-lang active" data-lang="uz">🇺🇿 UZ</button>
-              <button class="ph-lang" data-lang="ru">🇷🇺 RU</button>
-              <button class="ph-lang" data-lang="en">🇬🇧 EN</button>
-              <button class="ph-lang" data-lang="zh">🇨🇳 ZH</button>
-            </div>
-
-            <button class="speak-btn" id="speakBtn">
-              <span id="speakIcon">🤖</span>
-              <span id="speakText">Ma'lumot olish</span>
-            </button>
+            <div class="monuments-scroll" id="phoneMonuments"><div class="m-chip active" data-idx="0">🕌 Registon</div><div class="m-chip" data-idx="1">🗼 Minorai Kalon</div><div class="m-chip" data-idx="2">🏰 Ichan Qal'a</div><div class="m-chip" data-idx="3">⛪ Bibi-Xonim</div><div class="m-chip" data-idx="4">🏛️ Ark Qal'asi</div></div>
+            <div class="phone-langs" id="phoneLangs"><button class="ph-lang active" data-lang="uz">🇺🇿 UZ</button><button class="ph-lang" data-lang="ru">🇷🇺 RU</button><button class="ph-lang" data-lang="en">🇬🇧 EN</button><button class="ph-lang" data-lang="zh">🇨🇳 ZH</button><button class="ph-lang" data-lang="ar">🇸🇦 AR</button><button class="ph-lang" data-lang="fr">🇫🇷 FR</button><button class="ph-lang" data-lang="de">🇩🇪 DE</button><button class="ph-lang" data-lang="es">🇪🇸 ES</button><button class="ph-lang" data-lang="ja">🇯🇵 JA</button><button class="ph-lang" data-lang="ko">🇰🇷 KO</button></div>
+            <button class="speak-btn" id="speakBtn"><span id="speakIcon">🤖</span><span id="speakText">Ma'lumot olish</span></button>
             <div class="home-ind"></div>
           </div>
         </div>
@@ -1226,1042 +243,168 @@ body{
     </div>
   </div>
 
-  <!-- Right: Monument info -->
   <div class="right-panel">
     <div class="r-panel-title">Hozirgi ma'lumot</div>
-    <div class="monument-info-card">
-      <img id="rightImg" src="https://images.unsplash.com/photo-1548013146-72479768bada?w=400&q=80" alt="" class="monument-img">
-      <div class="m-name" id="rightName">Registon</div>
-      <div class="m-loc">📍 <span id="rightLoc">Samarqand, O'zbekiston</span></div>
-      <div class="m-desc-text" id="rightDesc">Ma'lumot olish uchun tugmani bosing...</div>
-      <div class="m-tags" id="rightTags"></div>
-    </div>
+    <div class="monument-info-card"><img id="rightImg" src="https://images.unsplash.com/photo-1548013146-72479768bada?w=400&q=80" alt="" class="monument-img"><div class="m-name" id="rightName">Registon</div><div class="m-loc">📍 <span id="rightLoc">Samarqand, O'zbekiston</span></div><div class="m-desc-text" id="rightDesc">Ma'lumot olish uchun tugmani bosing...</div><div class="m-tags" id="rightTags"></div></div>
   </div>
-
 </div>
 
+</div></div>
 
-</div>
+<nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100 px-6 py-4 shadow-sm">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="./index.html"><div class="flex items-center gap-2"><i class="fas fa-globe-asia text-3xl text-blue-500"></i><span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">SmartTour 360</span></div></a>
+        <div class="hidden md:flex gap-8"><a href="./index.html" class="nav-link font-medium">Bosh sahifa</a><a href="#" data-nav="destinations" class="nav-link font-medium">Yo'nalishlar</a><a href="#" data-nav="hotels" class="nav-link font-medium">Mehmonxonalar</a><a href="#" data-nav="restaurants" class="nav-link font-medium">Restoranlar</a><a href="#" data-nav="events" class="nav-link font-medium">Tadbirlar</a><a href="#" data-nav="map" class="nav-link font-medium">Xarita</a><a href="#" data-nav="booking" class="nav-link font-medium">Bron qilish</a><a href="#" data-nav="ai" class="nav-link font-medium">AI Yordamchi</a><a href="#" onclick="openMobilePanel(event)" class="nav-link font-medium text-blue-600">📱 Mobil app</a></div>
+        <div class="flex gap-2"><button data-lang="uz" class="lang-btn px-3 py-1.5 rounded-xl bg-blue-600 text-white text-sm font-medium shadow-sm">UZ</button><button data-lang="ru" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">RU</button><button data-lang="en" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">EN</button><button data-lang="zh" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">中文</button><button data-lang="ar" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">العربية</button><button data-lang="fr" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">FR</button><button data-lang="de" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">DE</button><button data-lang="es" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">ES</button><button data-lang="ja" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">日本語</button><button data-lang="ko" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200">한국어</button><button id="mobileMenuBtn" class="md:hidden text-gray-700 text-2xl ml-2"><i class="fas fa-bars"></i></button></div>
     </div>
+    <div id="mobileMenu" class="mobile-menu md:hidden mt-4 space-y-2 bg-white/95 backdrop-blur-lg rounded-2xl p-4 shadow-xl border border-blue-100"><a href="#" data-nav="home" class="block text-gray-700 py-2 hover:text-blue-600">Bosh sahifa</a><a href="#" data-nav="destinations" class="block text-gray-700 py-2 hover:text-blue-600">Yo'nalishlar</a><a href="#" data-nav="hotels" class="block text-gray-700 py-2 hover:text-blue-600">Mehmonxonalar</a><a href="#" data-nav="restaurants" class="block text-gray-700 py-2 hover:text-blue-600">Restoranlar</a><a href="#" data-nav="events" class="block text-gray-700 py-2 hover:text-blue-600">Tadbirlar</a><a href="#" data-nav="map" class="block text-gray-700 py-2 hover:text-blue-600">Xarita</a><a href="#" data-nav="booking" class="block text-gray-700 py-2 hover:text-blue-600">Bron qilish</a><a href="#" data-nav="ai" class="block text-gray-700 py-2 hover:text-blue-600">AI Yordamchi</a><a href="#" onclick="openMobilePanel(event)" class="block text-blue-600 py-2 font-semibold">📱 Mobil App</a></div>
+</nav>
 
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100 px-6 py-4 shadow-sm">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="./index.html">
-                <div class="flex items-center gap-2">
-                <i class="fas fa-globe-asia text-3xl text-blue-500"></i>
-                <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">SmartTour 360</span>
-            </div>
-            </a>
-            <div class="hidden md:flex gap-8">
-                <a href="./index.html" class="nav-link font-medium">Bosh sahifa</a>
-                <a href="#" data-nav="destinations" class="nav-link font-medium">Yo'nalishlar</a>
-                <a href="#" data-nav="hotels" class="nav-link font-medium">Mehmonxonalar</a>
-                <a href="#" data-nav="restaurants" class="nav-link font-medium">Restoranlar</a>
-                <a href="#" data-nav="events" class="nav-link font-medium">Tadbirlar</a>
-                <a href="#" data-nav="map" class="nav-link font-medium">Xarita</a>
-                <a href="#" data-nav="booking" class="nav-link font-medium">Bron qilish</a>
-                <a href="#" data-nav="ai" class="nav-link font-medium">AI Yordamchi</a>
-                <a href="#" onclick="openMobilePanel(event)" class="nav-link font-medium text-blue-600">📱 Mobil app</a>
-            </div>
-            <div class="flex gap-2">
-                <button data-lang="uz" class="lang-btn px-3 py-1.5 rounded-xl bg-blue-600 text-white text-sm font-medium shadow-sm">UZ</button>
-                <button data-lang="ru" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200 hover:bg-blue-50">RU</button>
-                <button data-lang="en" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200 hover:bg-blue-50">EN</button>
-                <button data-lang="zh" class="lang-btn px-3 py-1.5 rounded-xl bg-white text-blue-600 text-sm font-medium border border-blue-200 hover:bg-blue-50">中文</button>
-                <button id="mobileMenuBtn" class="md:hidden text-gray-700 text-2xl ml-2"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-        <div id="mobileMenu" class="mobile-menu md:hidden mt-4 space-y-2 bg-white/95 backdrop-blur-lg rounded-2xl p-4 shadow-xl border border-blue-100">
-            <a href="#" data-nav="home" class="block text-gray-700 py-2 hover:text-blue-600 transition">Bosh sahifa</a>
-            <a href="#" data-nav="destinations" class="block text-gray-700 py-2 hover:text-blue-600 transition">Yo'nalishlar</a>
-            <a href="#" data-nav="hotels" class="block text-gray-700 py-2 hover:text-blue-600 transition">Mehmonxonalar</a>
-            <a href="#" data-nav="restaurants" class="block text-gray-700 py-2 hover:text-blue-600 transition">Restoranlar</a>
-            <a href="#" data-nav="events" class="block text-gray-700 py-2 hover:text-blue-600 transition">Tadbirlar</a>
-            <a href="#" data-nav="map" class="block text-gray-700 py-2 hover:text-blue-600 transition">Xarita</a>
-            <a href="#" data-nav="booking" class="block text-gray-700 py-2 hover:text-blue-600 transition">Bron qilish</a>
-            <a href="#" data-nav="ai" class="block text-gray-700 py-2 hover:text-blue-600 transition">AI Yordamchi</a>
-            <a href="#" onclick="openMobilePanel(event)" class="block text-blue-600 py-2 font-semibold">📱 Mobil App</a>
-        </div>
-    </nav>
+<main class="pt-24">
+    <section class="hero-bg text-gray-800 py-28 px-4 relative"><div class="container mx-auto text-center relative z-10" data-aos="fade-up"><div class="inline-block px-4 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 mb-4"><span class="text-sm text-blue-700">✨ 360° Virtual Sayohatlar</span></div><h1 class="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-blue-700 via-purple-600 to-pink-600 bg-clip-text text-transparent">O'zbekiston bo'ylab<br>sayohat</h1><p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">Mehmonxonalar, restoranlar, tadbirlar va 360° virtual sayohatlar — barchasi bir platformada</p><div class="flex gap-4 justify-center"><button id="exploreBtn" class="btn-primary px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition transform hover:scale-105">Kashf qilish →</button><button id="watchVideoBtn" class="bg-white/80 backdrop-blur border border-blue-200 text-blue-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-50">🎬 Video ko'rish</button></div></div></section>
 
-    <main class="pt-24">
-        <!-- Hero Section -->
-        <section class="hero-bg text-gray-800 py-28 px-4 relative">
-            <div class="container mx-auto text-center relative z-10" data-aos="fade-up">
-                <div class="inline-block px-4 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 mb-4">
-                    <span class="text-sm text-blue-700">✨ 360° Virtual Sayohatlar</span>
-                </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-blue-700 via-purple-600 to-pink-600 bg-clip-text text-transparent">O'zbekiston bo'ylab<br>sayohat</h1>
-                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">Mehmonxonalar, restoranlar, tadbirlar va 360° virtual sayohatlar — barchasi bir platformada</p>
-                <div class="flex gap-4 justify-center">
-                    <button id="exploreBtn" class="btn-primary px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition transform hover:scale-105">Kashf qilish →</button>
-                    <button id="watchVideoBtn" class="bg-white/80 backdrop-blur border border-blue-200 text-blue-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-50 transition">🎬 Video ko'rish</button>
-                </div>
-            </div>
-        </section>
+    <section class="py-16 px-4"><div class="container mx-auto"><div class="grid grid-cols-2 md:grid-cols-4 gap-6"><div class="glass-premium p-6 text-center" data-aos="zoom-in"><i class="fas fa-map-marked-alt text-4xl text-blue-500 mb-3"></i><h3 class="text-4xl font-bold text-gray-800">50+</h3><p class="text-gray-500">Turistik joylar</p></div><div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-hotel text-4xl text-green-500 mb-3"></i><h3 class="text-4xl font-bold text-gray-800">30+</h3><p class="text-gray-500">Mehmonxonalar</p></div><div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-utensils text-4xl text-orange-500 mb-3"></i><h3 class="text-4xl font-bold text-gray-800">45+</h3><p class="text-gray-500">Restoranlar</p></div><div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-calendar-alt text-4xl text-purple-500 mb-3"></i><h3 class="text-4xl font-bold text-gray-800">20+</h3><p class="text-gray-500">Tadbirlar</p></div></div></div></section>
 
-        <!-- Stats -->
-        <section class="py-16 px-4">
-            <div class="container mx-auto">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="0">
-                        <i class="fas fa-map-marked-alt text-4xl text-blue-500 mb-3"></i>
-                        <h3 class="text-4xl font-bold text-gray-800">50+</h3>
-                        <p class="text-gray-500">Turistik joylar</p>
-                    </div>
-                    <div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="100">
-                        <i class="fas fa-hotel text-4xl text-green-500 mb-3"></i>
-                        <h3 class="text-4xl font-bold text-gray-800">30+</h3>
-                        <p class="text-gray-500">Mehmonxonalar</p>
-                    </div>
-                    <div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="200">
-                        <i class="fas fa-utensils text-4xl text-orange-500 mb-3"></i>
-                        <h3 class="text-4xl font-bold text-gray-800">45+</h3>
-                        <p class="text-gray-500">Restoranlar</p>
-                    </div>
-                    <div class="glass-premium p-6 text-center" data-aos="zoom-in" data-aos-delay="300">
-                        <i class="fas fa-calendar-alt text-4xl text-purple-500 mb-3"></i>
-                        <h3 class="text-4xl font-bold text-gray-800">20+</h3>
-                        <p class="text-gray-500">Tadbirlar</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="section-destinations" class="py-20 px-4"><div class="container mx-auto"><div class="text-center mb-12" data-aos="fade-up"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Mashhur yo'nalishlar</h2><p class="text-gray-500 text-lg max-w-2xl mx-auto">O'zbekistonning eng go'zal shaharlari va diqqatga sazovor joylari</p></div><div class="grid md:grid-cols-3 gap-8"><div class="dest-card" data-dest="samarkand"><img src="https://st.muslim.uz/cache/e/c/3/6/0/ec36036eb552e3b2391ade919a4c00b14c7460f5.jpeg" alt="Samarqand"><div class="p-5"><div class="flex justify-between items-start"><div><h3 class="text-xl font-bold text-gray-800">Samarqand</h3><p class="text-gray-500 text-sm">Registon, Bibi-Xonim, Shohizinda</p></div><div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg"><i class="fas fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm text-gray-700">4.9</span></div></div><div class="flex items-center gap-4 mt-3 text-sm text-gray-500"><span><i class="fas fa-map-marker-alt text-red-400"></i> 15 ta joy</span><span><i class="fas fa-hotel text-blue-400"></i> 8 mehmonxona</span></div><button class="view-details mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-xl font-semibold transition hover:opacity-90">Batafsil →</button></div></div><div class="dest-card" data-dest="bukhara"><img src="https://www.afisha.uz/uploads/media/2024/07/726ed482558faef00c995eff8b4ba97f.jpg" alt="Buxoro"><div class="p-5"><div class="flex justify-between items-start"><div><h3 class="text-xl font-bold text-gray-800">Buxoro</h3><p class="text-gray-500 text-sm">Poi Kalon, Ark, Sitorai Mohi Xosa</p></div><div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg"><i class="fas fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm text-gray-700">4.8</span></div></div><div class="flex items-center gap-4 mt-3 text-sm text-gray-500"><span><i class="fas fa-map-marker-alt text-red-400"></i> 12 ta joy</span><span><i class="fas fa-hotel text-blue-400"></i> 6 mehmonxona</span></div><button class="view-details mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-xl font-semibold transition hover:opacity-90">Batafsil →</button></div></div><div class="dest-card" data-dest="khiva"><img src="https://uzbekistan.travel/storage/app/media/Otabek/asosiydagi%20rasmlar/cropped-images/2079897013-0-0-0-0-1728537570.jpg" alt="Xiva"><div class="p-5"><div class="flex justify-between items-start"><div><h3 class="text-xl font-bold text-gray-800">Xiva</h3><p class="text-gray-500 text-sm">Ichan qal'a, Kunya Ark, Juma masjidi</p></div><div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg"><i class="fas fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm text-gray-700">4.7</span></div></div><div class="flex items-center gap-4 mt-3 text-sm text-gray-500"><span><i class="fas fa-map-marker-alt text-red-400"></i> 10 ta joy</span><span><i class="fas fa-hotel text-blue-400"></i> 5 mehmonxona</span></div><button class="view-details mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-xl font-semibold transition hover:opacity-90">Batafsil →</button></div></div></div></div></section>
 
-        <!-- Destinations -->
-        <section id="section-destinations" class="py-20 px-4">
-            <div class="container mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Mashhur yo'nalishlar</h2>
-                    <p class="text-gray-500 text-lg max-w-2xl mx-auto">O'zbekistonning eng go'zal shaharlari va diqqatga sazovor joylari</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="dest-card" data-dest="samarkand" data-aos="flip-left" data-aos-delay="0">
-                        <img src="https://st.muslim.uz/cache/e/c/3/6/0/ec36036eb552e3b2391ade919a4c00b14c7460f5.jpeg" alt="Samarqand">
-                        <div class="p-5">
-                            <div class="flex justify-between items-start">
-                                <div><h3 class="text-xl font-bold text-gray-800">Samarqand</h3><p class="text-gray-500 text-sm">Registon, Bibi-Xonim, Shohizinda</p></div>
-                                <div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg"><i class="fas fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm text-gray-700">4.9</span></div>
-                            </div>
-                            <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">
-                                <span><i class="fas fa-map-marker-alt text-red-400"></i> 15 ta joy</span>
-                                <span><i class="fas fa-hotel text-blue-400"></i> 8 mehmonxona</span>
-                            </div>
-                            <button class="view-details mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-xl font-semibold transition hover:opacity-90">Batafsil →</button>
-                        </div>
-                    </div>
-                    <div class="dest-card" data-dest="bukhara" data-aos="flip-left" data-aos-delay="100">
-                        <img src="https://www.afisha.uz/uploads/media/2024/07/726ed482558faef00c995eff8b4ba97f.jpg" alt="Buxoro">
-                        <div class="p-5">
-                            <div class="flex justify-between items-start">
-                                <div><h3 class="text-xl font-bold text-gray-800">Buxoro</h3><p class="text-gray-500 text-sm">Poi Kalon, Ark, Sitorai Mohi Xosa</p></div>
-                                <div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg"><i class="fas fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm text-gray-700">4.8</span></div>
-                            </div>
-                            <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">
-                                <span><i class="fas fa-map-marker-alt text-red-400"></i> 12 ta joy</span>
-                                <span><i class="fas fa-hotel text-blue-400"></i> 6 mehmonxona</span>
-                            </div>
-                            <button class="view-details mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-xl font-semibold transition hover:opacity-90">Batafsil →</button>
-                        </div>
-                    </div>
-                    <div class="dest-card" data-dest="khiva" data-aos="flip-left" data-aos-delay="200">
-                        <img src="https://uzbekistan.travel/storage/app/media/Otabek/asosiydagi%20rasmlar/cropped-images/2079897013-0-0-0-0-1728537570.jpg" alt="Xiva">
-                        <div class="p-5">
-                            <div class="flex justify-between items-start">
-                                <div><h3 class="text-xl font-bold text-gray-800">Xiva</h3><p class="text-gray-500 text-sm">Ichan qal'a, Kunya Ark, Juma masjidi</p></div>
-                                <div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg"><i class="fas fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm text-gray-700">4.7</span></div>
-                            </div>
-                            <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">
-                                <span><i class="fas fa-map-marker-alt text-red-400"></i> 10 ta joy</span>
-                                <span><i class="fas fa-hotel text-blue-400"></i> 5 mehmonxona</span>
-                            </div>
-                            <button class="view-details mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-xl font-semibold transition hover:opacity-90">Batafsil →</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="section-hotels" class="py-20 px-4 bg-gradient-to-r from-blue-50 to-indigo-50"><div class="container mx-auto"><div class="text-center mb-12"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🌟 Eng yaxshi mehmonxonalar</h2><p class="text-gray-500 text-lg">Qulay narxlar va yuqori sifatli xizmat</p></div><div class="grid md:grid-cols-4 gap-6"><div class="service-card"><img src="https://avatars.mds.yandex.net/get-altay/16055577/2a0000019a26af25909cf698f832f8e83159/L_height" alt="Hyatt"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Hyatt Regency Tashkent</h3><div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-500 text-sm mt-1">Toshkent markazi, 5 yulduz</p><p class="text-2xl font-bold text-blue-600 mt-2">$120/<span class="text-sm">kecha</span></p><button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">Bron qilish</button></div></div><div class="service-card"><img src="https://tashkent.uz/_next/image?url=https%3A%2F%2Fapi.tashkent.uz%2Fupload%2Fcity%2Fseesight%2F2025%2F%25D0%2593%25D0%25BE%25D1%2581%25D1%2582%25D0%25B8%25D0%25BD%25D0%25B8%25D1%2586%25D0%25B0_%25D0%25A3%25D0%25B7%25D0%25B1%25D0%25B5%25D0%25BA%25D0%25B8%25D1%2581%25D1%2582%25D0%25B0%25D0%25BD_Russian.jpg&w=3840&q=75" alt="Lotte"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Lotte City Hotel</h3><div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-gray-300"></i></div><p class="text-gray-500 text-sm mt-1">Toshkent, 4 yulduz</p><p class="text-2xl font-bold text-blue-600 mt-2">$95/<span class="text-sm">kecha</span></p><button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">Bron qilish</button></div></div><div class="service-card"><img src="https://www.afisha.uz/uploads/media/2025/04/a09c2978e0a0e9538c65eea4e16d3ed2_l.webp" alt="Registan Plaza"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Registan Plaza</h3><div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-gray-300"></i></div><p class="text-gray-500 text-sm mt-1">Samarqand, 4 yulduz</p><p class="text-2xl font-bold text-blue-600 mt-2">$80/<span class="text-sm">kecha</span></p><button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">Bron qilish</button></div></div><div class="service-card"><img src="https://storage.kun.uz/source/1/sSWjMueYm8GevVyPuMFKEnv2w8xjtOWO.jpg" alt="Orient Star"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Orient Star Khiva</h3><div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-500 text-sm mt-1">Xiva, 5 yulduz</p><p class="text-2xl font-bold text-blue-600 mt-2">$110/<span class="text-sm">kecha</span></p><button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">Bron qilish</button></div></div></div></div></section>
 
-        <!-- Hotels -->
-        <section id="section-hotels" class="py-20 px-4 bg-gradient-to-r from-blue-50 to-indigo-50">
-            <div class="container mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🌟 Eng yaxshi mehmonxonalar</h2>
-                    <p class="text-gray-500 text-lg">Qulay narxlar va yuqori sifatli xizmat</p>
-                </div>
-                <div class="grid md:grid-cols-4 gap-6">
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                        <img src="https://avatars.mds.yandex.net/get-altay/16055577/2a0000019a26af25909cf698f832f8e83159/L_height" alt="Hyatt">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Hyatt Regency Tashkent</h3>
-                            <div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="text-gray-500 text-sm mt-1">Toshkent markazi, 5 yulduz</p>
-                            <p class="text-2xl font-bold text-blue-600 mt-2">$120/<span class="text-sm">kecha</span></p>
-                            <button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Bron qilish</button>
-                        </div>
-                    </div>
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="https://tashkent.uz/_next/image?url=https%3A%2F%2Fapi.tashkent.uz%2Fupload%2Fcity%2Fseesight%2F2025%2F%25D0%2593%25D0%25BE%25D1%2581%25D1%2582%25D0%25B8%25D0%25BD%25D0%25B8%25D1%2586%25D0%25B0_%25D0%25A3%25D0%25B7%25D0%25B1%25D0%25B5%25D0%25BA%25D0%25B8%25D1%2581%25D1%2582%25D0%25B0%25D0%25BD_Russian.jpg&w=3840&q=75" alt="Lotte">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Lotte City Hotel</h3>
-                            <div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-gray-300"></i>
-                            </div>
-                            <p class="text-gray-500 text-sm mt-1">Toshkent, 4 yulduz</p>
-                            <p class="text-2xl font-bold text-blue-600 mt-2">$95/<span class="text-sm">kecha</span></p>
-                            <button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Bron qilish</button>
-                        </div>
-                    </div>
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                        <img src="https://www.afisha.uz/uploads/media/2025/04/a09c2978e0a0e9538c65eea4e16d3ed2_l.webp" alt="Registan Plaza">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Registan Plaza</h3>
-                            <div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-gray-300"></i>
-                            </div>
-                            <p class="text-gray-500 text-sm mt-1">Samarqand, 4 yulduz</p>
-                            <p class="text-2xl font-bold text-blue-600 mt-2">$80/<span class="text-sm">kecha</span></p>
-                            <button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Bron qilish</button>
-                        </div>
-                    </div>
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                        <img src="https://storage.kun.uz/source/1/sSWjMueYm8GevVyPuMFKEnv2w8xjtOWO.jpg" alt="Orient Star">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Orient Star Khiva</h3>
-                            <div class="flex items-center gap-1 mt-1 text-yellow-400 text-xs">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="text-gray-500 text-sm mt-1">Xiva, 5 yulduz</p>
-                            <p class="text-2xl font-bold text-blue-600 mt-2">$110/<span class="text-sm">kecha</span></p>
-                            <button class="book-hotel mt-3 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Bron qilish</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="section-restaurants" class="py-20 px-4"><div class="container mx-auto"><div class="text-center mb-12"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🍽️ Milliy taomlar restoranlari</h2><p class="text-gray-500 text-lg">O'zbekistonning eng mazali taomlari va mehmondo'stligi</p></div><div class="grid md:grid-cols-3 gap-6"><div class="service-card"><img src="https://oqila.uz/wp-content/uploads/2022/12/photo_2022-12-06_15-34-08.jpg" alt="Caravan"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Caravan Restaurant</h3><p class="text-gray-500 text-sm">Milliy palov, somsa, shashlik</p><div class="flex items-center gap-2 mt-2 text-sm text-gray-500"><i class="fas fa-map-marker-alt text-red-400"></i><span>Toshkent, Amir Temur ko'chasi</span></div><div class="flex items-center gap-1 mt-2"><i class="fas fa-star text-yellow-400 text-sm"></i><span class="font-semibold text-gray-700">4.8</span><span class="text-gray-400 text-sm">(450 sharh)</span></div><button class="book-restaurant mt-3 w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600">Stol bron qilish</button></div></div><div class="service-card"><img src="https://avatars.mds.yandex.net/get-altay/4336337/2a0000017a57cc6684afa61607b50b0562d3/L_height" alt="Afsona"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Afsona Restaurant</h3><p class="text-gray-500 text-sm">An'anaviy o'zbek oshxonasi</p><div class="flex items-center gap-2 mt-2 text-sm text-gray-500"><i class="fas fa-map-marker-alt text-red-400"></i><span>Samarqand, Registon yaqinida</span></div><div class="flex items-center gap-1 mt-2"><i class="fas fa-star text-yellow-400 text-sm"></i><span class="font-semibold text-gray-700">4.9</span><span class="text-gray-400 text-sm">(620 sharh)</span></div><button class="book-restaurant mt-3 w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600">Stol bron qilish</button></div></div><div class="service-card"><img src="https://www.afisha.uz/uploads/media/2025/08/6f120c79c491b9d60394ee80537830d7_m.webp" alt="Buxoro Arslon"><div class="p-4"><h3 class="font-bold text-lg text-gray-800">Buxoro Arslon</h3><p class="text-gray-500 text-sm">Buxoro uslubidagi taomlar</p><div class="flex items-center gap-2 mt-2 text-sm text-gray-500"><i class="fas fa-map-marker-alt text-red-400"></i><span>Buxoro, Labi Xovuz</span></div><div class="flex items-center gap-1 mt-2"><i class="fas fa-star text-yellow-400 text-sm"></i><span class="font-semibold text-gray-700">4.7</span><span class="text-gray-400 text-sm">(380 sharh)</span></div><button class="book-restaurant mt-3 w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600">Stol bron qilish</button></div></div></div></div></section>
 
-        <!-- Restaurants -->
-        <section id="section-restaurants" class="py-20 px-4">
-            <div class="container mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🍽️ Milliy taomlar restoranlari</h2>
-                    <p class="text-gray-500 text-lg">O'zbekistonning eng mazali taomlari va mehmondo'stligi</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="service-card" data-aos="fade-right" data-aos-delay="0">
-                        <img src="https://oqila.uz/wp-content/uploads/2022/12/photo_2022-12-06_15-34-08.jpg" alt="Caravan">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Caravan Restaurant</h3>
-                            <p class="text-gray-500 text-sm">Milliy palov, somsa, shashlik</p>
-                            <div class="flex items-center gap-2 mt-2 text-sm text-gray-500">
-                                <i class="fas fa-map-marker-alt text-red-400"></i>
-                                <span>Toshkent, Amir Temur ko'chasi</span>
-                            </div>
-                            <div class="flex items-center gap-1 mt-2">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <span class="font-semibold text-gray-700">4.8</span>
-                                <span class="text-gray-400 text-sm">(450 sharh)</span>
-                            </div>
-                            <button class="book-restaurant mt-3 w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition">Stol bron qilish</button>
-                        </div>
-                    </div>
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="https://avatars.mds.yandex.net/get-altay/4336337/2a0000017a57cc6684afa61607b50b0562d3/L_height" alt="Afsona">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Afsona Restaurant</h3>
-                            <p class="text-gray-500 text-sm">An'anaviy o'zbek oshxonasi</p>
-                            <div class="flex items-center gap-2 mt-2 text-sm text-gray-500">
-                                <i class="fas fa-map-marker-alt text-red-400"></i>
-                                <span>Samarqand, Registon yaqinida</span>
-                            </div>
-                            <div class="flex items-center gap-1 mt-2">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <span class="font-semibold text-gray-700">4.9</span>
-                                <span class="text-gray-400 text-sm">(620 sharh)</span>
-                            </div>
-                            <button class="book-restaurant mt-3 w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition">Stol bron qilish</button>
-                        </div>
-                    </div>
-                    <div class="service-card" data-aos="fade-left" data-aos-delay="200">
-                        <img src="https://www.afisha.uz/uploads/media/2025/08/6f120c79c491b9d60394ee80537830d7_m.webp" alt="Buxoro Arslon">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">Buxoro Arslon</h3>
-                            <p class="text-gray-500 text-sm">Buxoro uslubidagi taomlar</p>
-                            <div class="flex items-center gap-2 mt-2 text-sm text-gray-500">
-                                <i class="fas fa-map-marker-alt text-red-400"></i>
-                                <span>Buxoro, Labi Xovuz</span>
-                            </div>
-                            <div class="flex items-center gap-1 mt-2">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <span class="font-semibold text-gray-700">4.7</span>
-                                <span class="text-gray-400 text-sm">(380 sharh)</span>
-                            </div>
-                            <button class="book-restaurant mt-3 w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition">Stol bron qilish</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="section-events" class="py-20 px-4 bg-gradient-to-r from-indigo-50 to-purple-50"><div class="container mx-auto"><div class="text-center mb-12"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🎉 Tadbirlar va festivallar</h2><p class="text-gray-500 text-lg">O'zbekistonda bo'lib o'tadigan eng qiziqarli tadbirlar</p></div><div class="grid md:grid-cols-3 gap-6"><div class="glass-card p-6 card-hover"><div class="flex items-center gap-4 mb-4"><div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center"><i class="fas fa-music text-2xl text-white"></i></div><div><h3 class="font-bold text-xl text-gray-800">Sharq Taronalari</h3><p class="text-gray-500 text-sm">Xalqaro musiqa festivali</p></div></div><p class="text-gray-600">Samarqandda har yili o'tkaziladigan buyuk musiqiy tadbir</p><div class="flex items-center gap-3 mt-4 text-sm"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"><i class="fas fa-calendar text-blue-500"></i> 25-30 avgust</span><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fas fa-map-marker-alt text-green-500"></i> Samarqand</span></div><button class="event-details mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200">Batafsil ma'lumot</button></div><div class="glass-card p-6 card-hover"><div class="flex items-center gap-4 mb-4"><div class="w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center"><i class="fas fa-utensils text-2xl text-white"></i></div><div><h3 class="font-bold text-xl text-gray-800">Palov sayli</h3><p class="text-gray-500 text-sm">Milliy taomlar festivali</p></div></div><p class="text-gray-600">O'zbekistonning eng mazali palovi tanlovi</p><div class="flex items-center gap-3 mt-4 text-sm"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"><i class="fas fa-calendar text-blue-500"></i> 15-16 may</span><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fas fa-map-marker-alt text-green-500"></i> Toshkent</span></div><button class="event-details mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200">Batafsil ma'lumot</button></div><div class="glass-card p-6 card-hover"><div class="flex items-center gap-4 mb-4"><div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center"><i class="fas fa-flag-checkered text-2xl text-white"></i></div><div><h3 class="font-bold text-xl text-gray-800">Ipak yo'li marafoni</h3><p class="text-gray-500 text-sm">Xalqaro sport tadbiri</p></div></div><p class="text-gray-600">Samarqand va Buxoro shaharlari bo'ylab marafon</p><div class="flex items-center gap-3 mt-4 text-sm"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"><i class="fas fa-calendar text-blue-500"></i> 5-7 oktyabr</span><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fas fa-map-marker-alt text-green-500"></i> Samarqand-Buxoro</span></div><button class="event-details mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200">Batafsil ma'lumot</button></div></div></div></section>
 
-        <!-- Events -->
-        <section id="section-events" class="py-20 px-4 bg-gradient-to-r from-indigo-50 to-purple-50">
-            <div class="container mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🎉 Tadbirlar va festivallar</h2>
-                    <p class="text-gray-500 text-lg">O'zbekistonda bo'lib o'tadigan eng qiziqarli tadbirlar</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="glass-card p-6 card-hover" data-aos="flip-left" data-aos-delay="0">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center"><i class="fas fa-music text-2xl text-white"></i></div>
-                            <div><h3 class="font-bold text-xl text-gray-800">Sharq Taronalari</h3><p class="text-gray-500 text-sm">Xalqaro musiqa festivali</p></div>
-                        </div>
-                        <p class="text-gray-600">Samarqandda har yili o'tkaziladigan buyuk musiqiy tadbir</p>
-                        <div class="flex items-center gap-3 mt-4 text-sm">
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"><i class="fas fa-calendar text-blue-500"></i> 25-30 avgust</span>
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fas fa-map-marker-alt text-green-500"></i> Samarqand</span>
-                        </div>
-                        <button class="event-details mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">Batafsil ma'lumot</button>
-                    </div>
-                    <div class="glass-card p-6 card-hover" data-aos="flip-up" data-aos-delay="100">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center"><i class="fas fa-utensils text-2xl text-white"></i></div>
-                            <div><h3 class="font-bold text-xl text-gray-800">Palov sayli</h3><p class="text-gray-500 text-sm">Milliy taomlar festivali</p></div>
-                        </div>
-                        <p class="text-gray-600">O'zbekistonning eng mazali palovi tanlovi</p>
-                        <div class="flex items-center gap-3 mt-4 text-sm">
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"><i class="fas fa-calendar text-blue-500"></i> 15-16 may</span>
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fas fa-map-marker-alt text-green-500"></i> Toshkent</span>
-                        </div>
-                        <button class="event-details mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">Batafsil ma'lumot</button>
-                    </div>
-                    <div class="glass-card p-6 card-hover" data-aos="flip-right" data-aos-delay="200">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center"><i class="fas fa-flag-checkered text-2xl text-white"></i></div>
-                            <div><h3 class="font-bold text-xl text-gray-800">Ipak yo'li marafoni</h3><p class="text-gray-500 text-sm">Xalqaro sport tadbiri</p></div>
-                        </div>
-                        <p class="text-gray-600">Samarqand va Buxoro shaharlari bo'ylab marafon</p>
-                        <div class="flex items-center gap-3 mt-4 text-sm">
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"><i class="fas fa-calendar text-blue-500"></i> 5-7 oktyabr</span>
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fas fa-map-marker-alt text-green-500"></i> Samarqand-Buxoro</span>
-                        </div>
-                        <button class="event-details mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">Batafsil ma'lumot</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="section-map" class="py-20 px-4"><div class="container mx-auto"><div class="text-center mb-12"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🗺️ Interaktiv sayohat xaritasi</h2><p class="text-gray-500 text-lg">Mehmonxonalar, restoranlar va turistik joylarni xaritada toping</p></div><div class="map-container"><div id="map" class="w-full h-[500px]"></div></div></div></section>
 
-        <!-- Map -->
-        <section id="section-map" class="py-20 px-4">
-            <div class="container mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🗺️ Interaktiv sayohat xaritasi</h2>
-                    <p class="text-gray-500 text-lg">Mehmonxonalar, restoranlar va turistik joylarni xaritada toping</p>
-                </div>
-                <div class="map-container" data-aos="zoom-in">
-                    <div id="map" class="w-full h-[500px]"></div>
-                </div>
-            </div>
-        </section>
+    <section id="section-booking" class="py-20 px-4 bg-gradient-to-r from-blue-50 to-purple-50"><div class="container mx-auto"><div class="text-center mb-12"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">📅 Tezkor bron qilish</h2><p class="text-gray-500 text-lg">Taksi va chiptalarni bir necha daqiqada bron qiling</p></div><div class="grid md:grid-cols-2 gap-8"><div class="glass-premium p-8 card-hover"><div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center"><i class="fas fa-taxi text-2xl text-yellow-600"></i></div><h3 class="text-2xl font-bold text-gray-800">Taksi buyurtma</h3></div><input type="text" id="pickup" placeholder="📍 Qayerdan?" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4"><input type="text" id="dropoff" placeholder="🏁 Qayerga?" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4"><button id="bookTaxiBtn" class="w-full btn-primary py-4 rounded-xl font-bold text-white text-lg">Taksi chaqirish</button><div id="taxiResponse" class="mt-4 text-sm text-green-600 hidden p-3 rounded-xl bg-green-50"></div></div><div class="glass-premium p-8 card-hover"><div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center"><i class="fas fa-ticket-alt text-2xl text-purple-600"></i></div><h3 class="text-2xl font-bold text-gray-800">Chipta bron qilish</h3></div><select id="ticketType" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4"><option value="flight">✈️ Samolyot</option><option value="train">🚆 Poyezd</option><option value="bus">🚌 Avtobus</option></select><input type="text" id="fromCity" placeholder="Qayerdan" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4" value="Toshkent"><input type="text" id="toCity" placeholder="Qayerga" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4" value="Samarqand"><input type="date" id="travelDate" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4"><button id="searchTicketsBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-bold text-lg transition hover:scale-105">Qidirish va bron qilish</button><div id="ticketResults" class="mt-4 text-sm text-green-600 hidden p-3 rounded-xl bg-green-50"></div></div></div></div></section>
 
-        <!-- Booking -->
-        <section id="section-booking" class="py-20 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
-            <div class="container mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">📅 Tezkor bron qilish</h2>
-                    <p class="text-gray-500 text-lg">Taksi va chiptalarni bir necha daqiqada bron qiling</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="glass-premium p-8 card-hover" data-aos="fade-right">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center"><i class="fas fa-taxi text-2xl text-yellow-600"></i></div>
-                            <h3 class="text-2xl font-bold text-gray-800">Taksi buyurtma</h3>
-                        </div>
-                        <input type="text" id="pickup" placeholder="📍 Qayerdan?" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-                        <input type="text" id="dropoff" placeholder="🏁 Qayerga?" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-                        <button id="bookTaxiBtn" class="w-full btn-primary py-4 rounded-xl font-bold text-white text-lg transition">Taksi chaqirish</button>
-                        <div id="taxiResponse" class="mt-4 text-sm text-green-600 hidden p-3 rounded-xl bg-green-50"></div>
-                    </div>
-                    <div class="glass-premium p-8 card-hover" data-aos="fade-left">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center"><i class="fas fa-ticket-alt text-2xl text-purple-600"></i></div>
-                            <h3 class="text-2xl font-bold text-gray-800">Chipta bron qilish</h3>
-                        </div>
-                        <select id="ticketType" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4 focus:outline-none focus:border-purple-500">
-                            <option value="flight">✈️ Samolyot</option>
-                            <option value="train">🚆 Poyezd</option>
-                            <option value="bus">🚌 Avtobus</option>
-                        </select>
-                        <input type="text" id="fromCity" placeholder="Qayerdan" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4" value="Toshkent">
-                        <input type="text" id="toCity" placeholder="Qayerga" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4" value="Samarqand">
-                        <input type="date" id="travelDate" class="w-full p-4 rounded-xl bg-white border border-gray-200 text-gray-800 mb-4">
-                        <button id="searchTicketsBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-bold text-lg transition hover:scale-105">Qidirish va bron qilish</button>
-                        <div id="ticketResults" class="mt-4 text-sm text-green-600 hidden p-3 rounded-xl bg-green-50"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="section-ai" class="py-20 px-4"><div class="container mx-auto max-w-4xl"><div class="glass-premium p-8"><div class="flex items-center gap-4 border-b border-gray-200 pb-5 mb-5"><div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center"><i class="fas fa-robot text-2xl text-white"></i></div><div><h3 class="text-2xl font-bold text-gray-800">AI Sayohat yordamchisi</h3><p class="text-gray-500 text-sm">24/7 onlayn yordam</p></div><span class="ml-auto bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Online</span></div><div id="chatMessages" class="h-80 overflow-y-auto bg-gray-50 rounded-xl p-4 mb-4 space-y-3"><div class="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-xl max-w-[80%] text-gray-800"><i class="fas fa-robot mr-2 text-purple-600"></i> 👋 Salom! Men AI yordamchi. Menga mehmonxonalar, restoranlar, tadbirlar, taksi yoki chiptalar haqida savol bering!</div></div><div class="flex gap-3"><input type="text" id="chatInput" placeholder="Savolingizni yozing..." class="flex-1 p-4 rounded-xl bg-gray-100 border border-gray-200 text-gray-800"><button id="sendChatBtn" class="btn-primary px-8 rounded-xl font-bold text-white">Yuborish</button></div><div class="flex flex-wrap gap-2 mt-5"><button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100">🏨 Eng yaxshi mehmonxonalar</button><button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100">🍽️ Milliy taomlar qayerda mazali</button><button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100">🎉 Toshkentda qanday tadbirlar bor</button><button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100">📅 Sayohat uchun eng yaxshi vaqt</button></div></div></div></section>
 
-        <!-- AI Chat -->
-        <section id="section-ai" class="py-20 px-4">
-            <div class="container mx-auto max-w-4xl">
-                <div class="glass-premium p-8" data-aos="fade-up">
-                    <div class="flex items-center gap-4 border-b border-gray-200 pb-5 mb-5">
-                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center"><i class="fas fa-robot text-2xl text-white"></i></div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800">AI Sayohat yordamchisi</h3>
-                            <p class="text-gray-500 text-sm">24/7 onlayn yordam</p>
-                        </div>
-                        <span class="ml-auto bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Online</span>
-                    </div>
-                    <div id="chatMessages" class="h-80 overflow-y-auto bg-gray-50 rounded-xl p-4 mb-4 space-y-3">
-                        <div class="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-xl max-w-[80%] text-gray-800">
-                            <i class="fas fa-robot mr-2 text-purple-600"></i> 👋 Salom! Men AI yordamchi. Menga mehmonxonalar, restoranlar, tadbirlar, taksi yoki chiptalar haqida savol bering!
-                        </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <input type="text" id="chatInput" placeholder="Savolingizni yozing..." class="flex-1 p-4 rounded-xl bg-gray-100 border border-gray-200 text-gray-800 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-                        <button id="sendChatBtn" class="btn-primary px-8 rounded-xl font-bold text-white transition">Yuborish</button>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-5">
-                        <button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100 transition">🏨 Eng yaxshi mehmonxonalar</button>
-                        <button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100 transition">🍽️ Milliy taomlar qayerda mazali</button>
-                        <button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100 transition">🎉 Toshkentda qanday tadbirlar bor</button>
-                        <button class="quick-q bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-blue-100 transition">📅 Sayohat uchun eng yaxshi vaqt</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <footer class="bg-white/80 text-center text-gray-500 py-8 mt-8 border-t border-gray-200"><div class="container mx-auto"><div class="flex justify-center gap-6 mb-4 text-2xl"><i class="fab fa-facebook hover:text-blue-600 cursor-pointer transition hover:scale-110"></i><i class="fab fa-instagram hover:text-pink-600 cursor-pointer transition hover:scale-110"></i><i class="fab fa-telegram hover:text-blue-500 cursor-pointer transition hover:scale-110"></i><i class="fab fa-youtube hover:text-red-600 cursor-pointer transition hover:scale-110"></i></div><p>© 2025 TravelHub 360 Premium — To'liq turizm va sayohat platformasi | Hakaton loyihasi</p><p class="text-xs mt-2 text-gray-400">Barcha tugmalar va funksiyalar to'liq ishlaydi | 10+ til qo'llab-quvvatlanadi</p></div></footer>
+</main>
 
-        <footer class="bg-white/80 text-center text-gray-500 py-8 mt-8 border-t border-gray-200">
-            <div class="container mx-auto">
-                <div class="flex justify-center gap-6 mb-4 text-2xl">
-                    <i class="fab fa-facebook hover:text-blue-600 cursor-pointer transition hover:scale-110"></i>
-                    <i class="fab fa-instagram hover:text-pink-600 cursor-pointer transition hover:scale-110"></i>
-                    <i class="fab fa-telegram hover:text-blue-500 cursor-pointer transition hover:scale-110"></i>
-                    <i class="fab fa-youtube hover:text-red-600 cursor-pointer transition hover:scale-110"></i>
-                </div>
-                <p>© 2025 TravelHub 360 Premium — To'liq turizm va sayohat platformasi | Hakaton loyihasi</p>
-                <p class="text-xs mt-2 text-gray-400">Barcha tugmalar va funksiyalar to'liq ishlaydi</p>
-            </div>
-        </footer>
-    </main>
+<div id="bookingModal" class="booking-modal"><div class="modal-container"><div class="modal-header"><h3 id="modalTitle"><i class="fas fa-hotel"></i> Bron qilish</h3><button class="modal-close" onclick="closeBookingModal()"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="item-info-modal"><div class="item-icon-modal" id="modalIcon"><i class="fas fa-building"></i></div><div class="item-details-modal"><h4 id="modalItemName">Hyatt Regency Tashkent</h4><p><i class="fas fa-map-marker-alt"></i> <span id="modalItemLocation">Toshkent markazi</span></p></div></div><div class="form-group-modal"><label><i class="fas fa-user"></i> To'liq ismingiz</label><input type="text" id="guestName" placeholder="Ism Familiyangiz"></div><div class="form-group-modal"><label><i class="fas fa-phone"></i> Telefon raqam</label><input type="tel" id="guestPhone" placeholder="+998 XX XXX XX XX"></div><div class="form-group-modal" id="dateFieldsGroup"><label><i class="fas fa-calendar-alt"></i> Sana</label><input type="date" id="bookingDate"></div><div class="form-group-modal" id="timeGroup"><label><i class="fas fa-clock"></i> Soat</label><select id="bookingTime"><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option><option value="19:00">19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option></select></div><div class="form-group-modal" id="guestsGroup"><label><i class="fas fa-users"></i> Mehmonlar soni</label><select id="guestCount"><option value="1">1 kishi</option><option value="2" selected>2 kishi</option><option value="3">3 kishi</option><option value="4">4 kishi</option><option value="5">5 kishi</option><option value="6">6 kishi</option></select></div></div><div class="modal-footer"><button class="btn-cancel-modal" onclick="closeBookingModal()">Bekor qilish</button><button class="btn-confirm-modal" onclick="confirmBooking()">Bron qilish</button></div></div></div>
 
-    <!-- BOOKING MODAL (ochiq dizayn) -->
-    <div id="bookingModal" class="booking-modal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h3 id="modalTitle"><i class="fas fa-hotel"></i> Bron qilish</h3>
-                <button class="modal-close" onclick="closeBookingModal()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="item-info-modal">
-                    <div class="item-icon-modal" id="modalIcon"><i class="fas fa-building"></i></div>
-                    <div class="item-details-modal">
-                        <h4 id="modalItemName">Hyatt Regency Tashkent</h4>
-                        <p><i class="fas fa-map-marker-alt"></i> <span id="modalItemLocation">Toshkent markazi</span></p>
-                    </div>
-                </div>
-                <div class="form-group-modal">
-                    <label><i class="fas fa-user"></i> To'liq ismingiz</label>
-                    <input type="text" id="guestName" placeholder="Ism Familiyangiz">
-                </div>
-                <div class="form-group-modal">
-                    <label><i class="fas fa-phone"></i> Telefon raqam</label>
-                    <input type="tel" id="guestPhone" placeholder="+998 XX XXX XX XX">
-                </div>
-                <div class="form-group-modal" id="dateFieldsGroup">
-                    <label><i class="fas fa-calendar-alt"></i> Sana</label>
-                    <input type="date" id="bookingDate">
-                </div>
-                <div class="form-group-modal" id="timeGroup">
-                    <label><i class="fas fa-clock"></i> Soat</label>
-                    <select id="bookingTime">
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                    </select>
-                </div>
-                <div class="form-group-modal" id="guestsGroup">
-                    <label><i class="fas fa-users"></i> Mehmonlar soni</label>
-                    <select id="guestCount">
-                        <option value="1">1 kishi</option>
-                        <option value="2" selected>2 kishi</option>
-                        <option value="3">3 kishi</option>
-                        <option value="4">4 kishi</option>
-                        <option value="5">5 kishi</option>
-                        <option value="6">6 kishi</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-cancel-modal" onclick="closeBookingModal()">Bekor qilish</button>
-                <button class="btn-confirm-modal" onclick="confirmBooking()">Bron qilish</button>
-            </div>
-        </div>
-    </div>
+<div id="toastMessage" class="toast-message"><i class="fas fa-check-circle"></i><span id="toastText">Bron qilindi!</span></div>
 
-    <!-- Toast message -->
-    <div id="toastMessage" class="toast-message">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastText">Bron qilindi!</span>
-    </div>
+<script>
+AOS.init({duration:800,once:true});
 
-    <script>
+function openMobilePanel(e){if(e)e.preventDefault();document.getElementById('mobileAppOverlay').classList.add('show');document.body.style.overflow='hidden';}
+function closeMobilePanel(){document.getElementById('mobileAppOverlay').classList.remove('show');document.body.style.overflow='';}
+document.getElementById('mobileAppOverlay').addEventListener('click',function(e){if(e.target===this)closeMobilePanel();});
 
-        AOS.init({ duration: 800, once: true });
+// ---- 10 TA TIL UCHUN MONUMENT MA'LUMOTLARI (TO'LIQ TARJIMA) ----
+const monuments = [
+    { name:{uz:"Registon",ru:"Регистан",en:"Registan",zh:"雷吉斯坦广场",ar:"ريجستان",fr:"Registan",de:"Registan",es:"Registán",ja:"レギスタン広場",ko:"레기스탄"},
+      location:{uz:"Samarqand",ru:"Самарканд",en:"Samarkand",zh:"撒马尔罕",ar:"سمرقند",fr:"Samarcande",de:"Samarkand",es:"Samarcanda",ja:"サマルカンド",ko:"사마르칸트"},
+      img:"./images/image1.png",tags:["UNESCO","XV asr","Temuriylar","Madrasalar"],
+      text:{uz:"Registon — Samarqandning yuragi. Uchta buyuk madrasa: Ulug'bek (1420), Sher-Dor (1636) va Tillakori (1660).",ru:"Регистан — сердце Самарканда. Три великих медресе.",en:"Registan is the heart of Samarkand — three magnificent madrasas.",zh:"雷吉斯坦广场是撒马尔罕的心脏",ar:"ريجستان هو قلب سمرقند",fr:"Registan est le cœur de Samarcande",de:"Registan ist das Herz von Samarkand",es:"Registán es el corazón de Samarcanda",ja:"レギスタンはサマルカンドの中心",ko:"레기스탄은 사마르칸트의 심장"}},
+    { name:{uz:"Minorai Kalon",ru:"Минарет Калян",en:"Kalon Minaret",zh:"卡伦宣礼塔",ar:"مئذنة كالان",fr:"Minaret Kalon",de:"Kalon-Minarett",es:"Alminar de Kalon",ja:"カロン・ミナレット",ko:"칼론 미나렛"},
+      location:{uz:"Buxoro",ru:"Бухара",en:"Bukhara",zh:"布哈拉",ar:"بخارى",fr:"Boukhara",de:"Buchara",es:"Bujará",ja:"ブハラ",ko:"부하라"},
+      img:"./images/image2.png",tags:["XII asr","46 metr","Buxoro","Islom me'morchiligi"],
+      text:{uz:"Minorai Kalon — Buxoroning ramzi. 1127-yilda qurilgan, balandligi 46 metr.",ru:"Минарет Калян — символ Бухары. Построен в 1127 году.",en:"Kalon Minaret is the symbol of Bukhara, built in 1127.",zh:"卡伦宣礼塔是布哈拉的象征",ar:"مئذنة كالان هي رمز بخارى",fr:"Le minaret Kalon est le symbole de Boukhara",de:"Das Kalon-Minarett ist das Symbol von Buchara",es:"El alminar de Kalon es el símbolo de Bujará",ja:"カロン・ミナレットはブハラの象徴",ko:"칼론 미나렛은 부하라의 상징"}},
+    { name:{uz:"Ichan Qal'a",ru:"Ичан-Кала",en:"Itchan Kala",zh:"伊钦卡拉古城",ar:"إيتشان كالا",fr:"Itchan Kala",de:"Ichan Qal'a",es:"Itchan Kala",ja:"イチャン・カラ",ko:"이찬 칼라"},
+      location:{uz:"Xiva",ru:"Хива",en:"Khiva",zh:"希瓦",ar:"خيوة",fr:"Khiva",de:"Chiwa",es:"Jiva",ja:"ヒヴァ",ko:"히바"},
+      img:"./images/image3.png",tags:["UNESCO","XVII asr","Shahar-muzey","Xiva"],
+      text:{uz:"Ichan Qal'a — Xivaning ichki shahri. XVII asrda qurilgan shahar-muzey.",ru:"Ичан-Кала — внутренний город Хивы, музей под открытым небом.",en:"Itchan Kala is the inner walled city of Khiva, a museum-city.",zh:"伊钦卡拉是希瓦的内城",ar:"إيتشان كالا هي المدينة المسورة الداخلية لخيوة",fr:"Itchan Kala est la ville intérieure fortifiée de Khiva",de:"Ichan Qal'a ist die ummauerte Innenstadt von Chiwa",es:"Itchan Kala es la ciudad amurallada interior de Jiva",ja:"イチャン・カラはヒヴァの内壁都市",ko:"이찬 칼라는 히바의 내성 도시"}},
+    { name:{uz:"Bibi-Xonim",ru:"Биби-Ханым",en:"Bibi-Khanym",zh:"比比哈努姆清真寺",ar:"بيبي خانم",fr:"Bibi-Khanym",de:"Bibi-Chanum",es:"Bibi-Janym",ja:"ビビ・ハヌム",ko:"비비 하눔"},
+      location:{uz:"Samarqand",ru:"Самарканд",en:"Samarkand",zh:"撒马尔罕",ar:"سمرقند",fr:"Samarcande",de:"Samarkand",es:"Samarcanda",ja:"サマルカンド",ko:"사마르칸트"},
+      img:"./images/image4.png",tags:["1404-yil","Amir Temur","Ulkan gumbaz","UNESCO"],
+      text:{uz:"Bibi-Xonim masjidi — Amir Temur tomonidan 1404-yilda qurilgan.",ru:"Мечеть Биби-Ханым построена Амиром Тимуром в 1404 году.",en:"Bibi-Khanym Mosque was built by Amir Temur in 1404.",zh:"比比哈努姆清真寺由阿米尔·帖木儿于1404年建造",ar:"مسجد بيبي خانم بناه أمير تيمور عام 1404",fr:"La mosquée Bibi-Khanym a été construite par Amir Temur en 1404",de:"Die Bibi-Chanum-Moschee wurde 1404 von Amir Temur erbaut",es:"La mezquita Bibi-Janym fue construida por Amir Temur en 1404",ja:"ビビ・ハヌム・モスクは1404年にアミール・ティムールによって建設された",ko:"비비 하눔 모스크는 1404년 아미르 테무르에 의해 건설됨"}},
+    { name:{uz:"Ark Qal'asi",ru:"Крепость Арк",en:"Ark Fortress",zh:"阿尔克要塞",ar:"قلعة آرك",fr:"Forteresse Ark",de:"Ark-Festung",es:"Fortaleza Ark",ja:"アルク要塞",ko:"아르크 요새"},
+      location:{uz:"Buxoro",ru:"Бухара",en:"Bukhara",zh:"布哈拉",ar:"بخارى",fr:"Boukhara",de:"Buchara",es:"Bujará",ja:"ブハラ",ko:"부하라"},
+      img:"./images/image5.png",tags:["IV asr","Qal'a","Buxoro amiri","Muzey"],
+      text:{uz:"Ark Qal'asi — Buxoroning eng qadimiy inshooti. Miloddan avvalgi IV asrda qurilgan.",ru:"Крепость Арк — древнейшее сооружение Бухары.",en:"Ark Fortress is the oldest structure in Bukhara, built in 4th century BC.",zh:"阿尔克要塞是布哈拉最古老的建筑",ar:"قلعة آرك هي أقدم بناء في بخارى",fr:"La forteresse Ark est la plus ancienne structure de Boukhara",de:"Die Ark-Festung ist das älteste Bauwerk in Buchara",es:"La fortaleza Ark es la estructura más antigua de Bujará",ja:"アルク要塞はブハラで最も古い建造物",ko:"아르크 요새는 부하라에서 가장 오래된 건축물"}}
+];
 
-        // ---- MOBILE PANEL (asl holicha) ----
-        function openMobilePanel(e) {
-            if (e) e.preventDefault();
-            document.getElementById('mobileAppOverlay').classList.add('show');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-                const t = document.getElementById('phoneTypingMsg');
-                if (t) {
-                    t.innerHTML = 'Albatta! Eng yaxshi variant: <b>Orient Star Khiva</b> — $110/kecha, 5 yulduz ⭐';
-                    t.style.display = 'block';
-                }
-            }, 2000);
-        }
-        
-        function closeMobilePanel() {
-            document.getElementById('mobileAppOverlay').classList.remove('show');
-            document.body.style.overflow = '';
-        }
-        document.getElementById('mobileAppOverlay').addEventListener('click', function(e) {
-            if (e.target === this) closeMobilePanel();
+// ---- 10 TA TIL UCHUN AI CHAT MA'LUMOTLARI ----
+const aiData = {
+    uz:{hotels:"Eng yaxshi mehmonxonalar: Hyatt Regency ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).",restaurants:"Mashhur restoranlar: Caravan, Afsona, Buxoro Arslon.",events:"Yirik tadbirlar: Sharq Taronalari (avgust), Palov sayli (may), Ipak yo'li marafoni (oktyabr).",time:"Eng yaxshi vaqt: bahor (aprel-may) va kuz (sentyabr-oktyabr).",default:"Savol bering — mehmonxonalar, restoranlar, tadbirlar haqida yordam beraman!"},
+    ru:{hotels:"Лучшие отели: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).",restaurants:"Популярные: Caravan, Afsona, Bukhara Arslon.",events:"Шарк Тароналари (авг), Плов-фест (май), Марафон (окт).",time:"Лучшее время: весна и осень.",default:"Задайте вопрос про отели, рестораны, события!"},
+    en:{hotels:"Best hotels: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).",restaurants:"Popular: Caravan, Afsona, Bukhara Arslon.",events:"Sharq Taronalari (Aug), Plov Fest (May), Silk Road Marathon (Oct).",time:"Best time: spring & autumn.",default:"Ask me about hotels, restaurants or events!"},
+    zh:{hotels:"最佳酒店：凯悦($120)、乐天($95)、雷吉斯坦($80)、东方之星($110)。",restaurants:"热门餐厅：Caravan、Afsona、布哈拉Arslon。",events:"主要活动：东方之声(8月)、抓饭节(5月)、丝路马拉松(10月)。",time:"最佳时间：春秋季。",default:"请问您需要了解酒店、餐厅或活动信息？"},
+    ar:{hotels:"أفضل الفنادق: حياة (120$)، لوت سيتي (95$)، ريجستان بلازا (80$)، أورينت ستار (110$).",restaurants:"المطاعم الشهيرة: كارافان، أفيسونا، بخارى أرسلان.",events:"الفعاليات: شارق ترانالاري (أغسطس)، مهرجان بيلاف (مايو)، ماراثون طريق الحرير (أكتوبر).",time:"أفضل وقت: الربيع والخريف.",default:"اسألني عن الفنادق والمطاعم والفعاليات!"},
+    fr:{hotels:"Meilleurs hôtels: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).",restaurants:"Restaurants populaires: Caravan, Afsona, Boukhara Arslon.",events:"Événements: Sharq Taronalari (août), Festival Plov (mai), Marathon de la Soie (oct.).",time:"Meilleure période: printemps et automne.",default:"Demandez-moi tout sur les hôtels, restaurants et événements!"},
+    de:{hotels:"Beste Hotels: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).",restaurants:"Beliebte Restaurants: Caravan, Afsona, Buchara Arslon.",events:"Veranstaltungen: Sharq Taronalari (Aug.), Plov-Fest (Mai), Seidenstraßen-Marathon (Okt.).",time:"Beste Zeit: Frühling und Herbst.",default:"Fragen Sie mich nach Hotels, Restaurants oder Veranstaltungen!"},
+    es:{hotels:"Mejores hoteles: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).",restaurants:"Restaurantes populares: Caravan, Afsona, Bujará Arslon.",events:"Eventos: Sharq Taronalari (agosto), Festival Plov (mayo), Maratón de la Seda (octubre).",time:"Mejor época: primavera y otoño.",default:"¡Pregúntame sobre hoteles, restaurantes o eventos!"},
+    ja:{hotels:"最高のホテル：ハイアット（$120）、ロッテシティ（$95）、レギスタンプラザ（$80）、オリエントスター（$110）。",restaurants:"人気レストラン：キャラバン、アフソナ、ブハラアルスロン。",events:"イベント：シャルク・タロナラリ（8月）、プロフフェス（5月）、シルクロードマラソン（10月）。",time:"ベストシーズン：春と秋。",default:"ホテル、レストラン、イベントについて質問してください！"},
+    ko:{hotels:"최고의 호텔: 하얏트($120), 롯데시티($95), 레기스탄 플라자($80), 오리엔트 스타($110).",restaurants:"인기 레스토랑: 캐러밴, 압소나, 부하라 아르슬론.",events:"이벤트: 샤르크 타로날라리(8월), 플로프 축제(5월), 실크로드 마라톤(10월).",time:"최적의 시기: 봄과 가을.",default:"호텔, 레스토랑, 이벤트에 대해 물어보세요!"}
+};
+
+let currentLang = "uz";
+let currentIdx = 0;
+let isSpeaking = false;
+let utterance = null;
+let typeTimer = null;
+
+const btnLabels = {uz:"🎙️ Ma'lumot olish",ru:"🎙️ Узнать",en:"🎙️ Learn",zh:"🎙️ 了解",ar:"🎙️ تعلم",fr:"🎙️ Apprendre",de:"🎙️ Lernen",es:"🎙️ Aprender",ja:"🎙️ 学ぶ",ko:"🎙️ 배우기"};
+const stopLabels = {uz:"⏹ To'xtatish",ru:"⏹ Стоп",en:"⏹ Stop",zh:"⏹ 停止",ar:"⏹ توقف",fr:"⏹ Arrêter",de:"⏹ Stopp",es:"⏹ Detener",ja:"⏹ 停止",ko:"⏹ 중지"};
+
+// Til tugmalari
+document.querySelectorAll(".lang-btn, .ph-lang").forEach(btn => {
+    btn.addEventListener("click", () => {
+        currentLang = btn.getAttribute("data-lang");
+        document.querySelectorAll(".lang-btn").forEach(b => {
+            b.classList.remove("bg-blue-600","text-white");
+            b.classList.add("bg-white","text-blue-600","border","border-blue-200");
         });
-
-        // Phone quick actions (asl holicha)
-        const phoneReplies = {
-            '🏨 Mehmonxonalar': 'Eng yaxshi: Hyatt Regency ($120), Orient Star ($110), Lotte City ($95) 🏨',
-            '🍽️ Restoranlar': 'Tavsiya: Caravan (Toshkent), Afsona (Samarqand), Buxoro Arslon 🍽️',
-            '🗺️ Xarita': 'Xarita bo\'limiga o\'tib, barcha joylarni ko\'rishingiz mumkin 🗺️',
-            '🌐 Tarjima': 'Qaysi tildan qaysi tilga? O\'zbek, Rus, Ingliz va 50+ til 🌐',
-        };
-
-        function phoneQuick(text) {
-            const msgs = document.getElementById('phoneChatMsgs');
-            if(!msgs) return;
-            const userDiv = document.createElement('div');
-            userDiv.className = 'chat-bubble-user';
-            userDiv.textContent = text;
-            msgs.appendChild(userDiv);
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'chat-bubble-ai';
-            typingDiv.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-            msgs.appendChild(typingDiv);
-            setTimeout(() => {
-                typingDiv.textContent = phoneReplies[text] || 'Tushundim! Yordam berishga tayyorman.';
-            }, 1200);
-        }
-
-        function phoneSubmit() {
-            const inp = document.getElementById('phoneInput');
-            if(!inp) return;
-            const val = inp.value.trim();
-            if (!val) return;
-            const msgs = document.getElementById('phoneChatMsgs');
-            if(!msgs) return;
-            const userDiv = document.createElement('div');
-            userDiv.className = 'chat-bubble-user';
-            userDiv.textContent = val;
-            msgs.appendChild(userDiv);
-            inp.value = '';
-            const replies = ['Tushundim! Sizga yordam beraman 😊', 'Ajoyib savol! Keling birga ko\'rib chiqaylik.', 'Men bu haqda batafsil ma\'lumot bera olaman.'];
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'chat-bubble-ai';
-            typingDiv.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-            msgs.appendChild(typingDiv);
-            setTimeout(() => {
-                typingDiv.textContent = replies[Math.floor(Math.random()*replies.length)];
-            }, 1400);
-        }
-
-        let micOn = false;
-        function togglePhoneMic() {
-            micOn = !micOn;
-            const btn = document.getElementById('phoneMicBtn');
-            if(btn) {
-                btn.style.background = micOn ? 'rgba(16,185,129,0.5)' : 'rgba(16,185,129,0.2)';
-            }
-            if (micOn) setTimeout(() => { micOn = false; if(btn) btn.style.background = 'rgba(16,185,129,0.2)'; phoneQuick('🎙️ Ovozli buyruq'); }, 3000);
-        }
-
-        // ---- LANGUAGE (asl holicha) ----
-        let currentLang = "uz";
-        document.querySelectorAll(".lang-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                currentLang = btn.getAttribute("data-lang");
-                document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("bg-blue-600"));
-                btn.classList.add("bg-blue-600");
-            });
-        });
-
-        // ---- MAP (asl holicha) ----
-        const map = L.map('map').setView([41.311081, 69.279562], 6.5);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap, CartoDB', subdomains: 'abcd' }).addTo(map);
-        const allPlaces = [
-            { lat: 41.311, lng: 69.279, name: "Toshkent", type: "city", icon: "🏙️", desc: "Poytaxt" },
-            { lat: 39.654, lng: 66.975, name: "Samarqand", type: "city", icon: "🏛️", desc: "Registon" },
-            { lat: 39.774, lng: 64.428, name: "Buxoro", type: "city", icon: "🕌", desc: "Poi Kalon" },
-            { lat: 41.378, lng: 60.358, name: "Xiva", type: "city", icon: "🏰", desc: "Ichan qal'a" },
-            { lat: 41.323, lng: 69.267, name: "Minor masjidi", type: "mosque", icon: "🕌", desc: "Toshkent" },
-            { lat: 41.312, lng: 69.295, name: "Hyatt Regency", type: "hotel", icon: "🏨", desc: "5 yulduz" },
-            { lat: 41.314, lng: 69.285, name: "Caravan", type: "restaurant", icon: "🍽️", desc: "Restoran" }
-        ];
-        allPlaces.forEach(place => {
-            const colors = { city: "#3b82f6", mosque: "#10b981", hotel: "#f59e0b", restaurant: "#ef4444" };
-            const color = colors[place.type] || "#8b5cf6";
-            const html = `<div style="background:${color};width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${place.icon}</div>`;
-            L.marker([place.lat, place.lng], { icon: L.divIcon({ html, iconSize: [38,38] }) }).addTo(map).bindPopup(`<b>${place.name}</b><br>${place.desc}`);
-        });
-
-        // ---- TAXI (asl holicha) ----
-        document.getElementById("bookTaxiBtn").addEventListener("click", () => {
-            const pickup = document.getElementById("pickup").value || "Joriy joy";
-            const dropoff = document.getElementById("dropoff").value || "Markaz";
-            const resp = document.getElementById("taxiResponse");
-            resp.classList.remove("hidden");
-            resp.innerHTML = '<div class="spinner"></div><p class="mt-2">Haydovchi qidirilmoqda...</p>';
-            setTimeout(() => { resp.innerHTML = `✅ Taksi topildi! ${pickup} → ${dropoff}. Narx: 15 000 - 25 000 so'm. Tel: +998 90 123 45 67`; }, 1500);
-        });
-
-        // ---- TICKETS (asl holicha) ----
-        document.getElementById("searchTicketsBtn").addEventListener("click", () => {
-            const types = { flight: "✈️ Samolyot", train: "🚆 Poyezd", bus: "🚌 Avtobus" };
-            const type = types[document.getElementById("ticketType").value];
-            const from = document.getElementById("fromCity").value || "Toshkent";
-            const to = document.getElementById("toCity").value || "Samarqand";
-            const date = document.getElementById("travelDate").value || "2025-05-20";
-            const resp = document.getElementById("ticketResults");
-            resp.classList.remove("hidden");
-            resp.innerHTML = '<div class="spinner"></div><p class="mt-2">Qidirilmoqda...</p>';
-            setTimeout(() => {
-                const prices = { flight: 45, train: 25, bus: 15 };
-                const price = prices[document.getElementById("ticketType").value] || 30;
-                resp.innerHTML = `✅ ${type} chiptasi topildi! ${from} → ${to}, sana: ${date}. Narxi: ${price} USD. Bron qilindi!`;
-            }, 1200);
-        });
-
-        // ---- EVENTS / VIEW DETAILS (asl holicha, alert) ----
-        document.querySelectorAll(".event-details").forEach(btn => {
-            btn.addEventListener("click", () => alert("🎉 Tadbir haqida batafsil ma'lumot uchun saytimizga tashrif buyuring!"));
-        });
-        document.querySelectorAll(".view-details").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const city = btn.closest('.dest-card').querySelector('h3').innerText;
-                alert(`📍 ${city} haqida batafsil ma'lumot:\n• 10+ tarixiy obidalar\n• 5-8 mehmonxona\n• 15+ milliy taomlar\n• Sayohat narxi: $50-150`);
-            });
-        });
-
-        // ===== BOOKING MODAL LOGIC (ochiq dizayn) =====
-        let currentBookingType = 'hotel';
-        let currentItemName = '';
-        let currentItemLocation = '';
-
-        function showToast(message) {
-            const toast = document.getElementById('toastMessage');
-            const toastText = document.getElementById('toastText');
-            toastText.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        function showHotelModal(hotelName, hotelLocation) {
-            currentBookingType = 'hotel';
-            currentItemName = hotelName;
-            currentItemLocation = hotelLocation;
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-hotel"></i> Mehmonxona bron qilish';
-            document.getElementById('modalIcon').innerHTML = '<i class="fas fa-building"></i>';
-            document.getElementById('modalItemName').textContent = hotelName;
-            document.getElementById('modalItemLocation').textContent = hotelLocation;
-            document.getElementById('dateFieldsGroup').style.display = 'block';
-            document.getElementById('timeGroup').style.display = 'block';
-            document.getElementById('guestsGroup').style.display = 'block';
-            document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('guestName').value = '';
-            document.getElementById('guestPhone').value = '';
-            document.getElementById('guestCount').value = '2';
-            document.getElementById('bookingModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function showRestaurantModal(restaurantName, restaurantLocation) {
-            currentBookingType = 'restaurant';
-            currentItemName = restaurantName;
-            currentItemLocation = restaurantLocation;
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-utensils"></i> Restoran bron qilish';
-            document.getElementById('modalIcon').innerHTML = '<i class="fas fa-utensils"></i>';
-            document.getElementById('modalItemName').textContent = restaurantName;
-            document.getElementById('modalItemLocation').textContent = restaurantLocation;
-            document.getElementById('dateFieldsGroup').style.display = 'block';
-            document.getElementById('timeGroup').style.display = 'block';
-            document.getElementById('guestsGroup').style.display = 'block';
-            document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('guestName').value = '';
-            document.getElementById('guestPhone').value = '';
-            document.getElementById('guestCount').value = '2';
-            document.getElementById('bookingModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeBookingModal() {
-            document.getElementById('bookingModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function confirmBooking() {
-            const name = document.getElementById('guestName').value;
-            const phone = document.getElementById('guestPhone').value;
-            const date = document.getElementById('bookingDate').value;
-            const time = document.getElementById('bookingTime').value;
-            const guests = document.getElementById('guestCount').value;
-            
-            if (!name || !phone) {
-                showToast('Iltimos, ism va telefon raqamingizni kiriting!');
-                return;
-            }
-            
-            if (!date) {
-                showToast('Iltimos, sanani tanlang!');
-                return;
-            }
-            
-            if (currentBookingType === 'hotel') {
-                showToast(`✅ ${currentItemName} mehmonxonasiga bron qilindi!\n📅 ${date} | 👥 ${guests} kishi`);
-            } else {
-                showToast(`✅ ${currentItemName} restoraniga stol bron qilindi!\n📅 ${date} | ⏰ ${time} | 👥 ${guests} kishi`);
-            }
-            
-            closeBookingModal();
-        }
-
-        // Attach modal to hotel book buttons
-        document.querySelectorAll(".book-hotel").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const card = btn.closest('.service-card');
-                const hotelName = card.querySelector('h3').textContent;
-                const hotelLocation = card.querySelector('.text-sm').textContent.split(',')[0];
-                showHotelModal(hotelName, hotelLocation);
-            });
-        });
-
-        // Attach modal to restaurant book buttons
-        document.querySelectorAll(".book-restaurant").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const card = btn.closest('.service-card');
-                const restaurantName = card.querySelector('h3').textContent;
-                const restaurantLocation = card.querySelector('.text-sm').textContent.split(',')[0];
-                showRestaurantModal(restaurantName, restaurantLocation);
-            });
-        });
-
-        // ---- AI CHAT (asl holicha) ----
-        const aiData = {
-            uz: {
-                hotels: "Eng yaxshi mehmonxonalar: Hyatt Regency Tashkent ($120/kecha), Lotte City Hotel ($95/kecha), Registan Plaza Samarqand ($80/kecha), Orient Star Khiva ($110/kecha).",
-                restaurants: "Mashhur restoranlar: Caravan (Toshkent), Afsona (Samarqand), Buxoro Arslon (Buxoro).",
-                events: "Yirik tadbirlar: Sharq Taronalari (25-30 avgust), Palov sayli (15-16 may), Ipak yo'li marafoni (5-7 oktyabr).",
-                time: "Eng yaxshi vaqt: bahor (aprel-may) va kuz (sentyabr-oktyabr) — 20-30°C.",
-                default: "Savol bering — mehmonxonalar, restoranlar, tadbirlar, taksi va chiptalar haqida yordam beraman!"
-            },
-            ru: { hotels: "Лучшие отели: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).", restaurants: "Популярные: Caravan, Afsona, Bukhara Arslon.", events: "Шарк Тароналари (авг), Плов-фест (май), Марафон (окт).", time: "Лучшее время: весна и осень.", default: "Задайте вопрос про отели, рестораны, события или билеты!" },
-            en: { hotels: "Best hotels: Hyatt ($120), Lotte City ($95), Registan Plaza ($80), Orient Star ($110).", restaurants: "Popular: Caravan, Afsona, Bukhara Arslon.", events: "Sharq Taronalari (Aug), Plov Fest (May), Silk Road Marathon (Oct).", time: "Best time: spring & autumn (20-30°C).", default: "Ask me about hotels, restaurants, events or tickets!" },
-            zh: { hotels: "最佳酒店：凯悦($120)、乐天($95)、雷吉斯坦($80)、东方之星($110)。", restaurants: "热门餐厅：Caravan、Afsona、布哈拉Arslon。", events: "主要活动：东方之声(8月)、抓饭节(5月)、丝路马拉松(10月)。", time: "最佳时间：春秋季。", default: "请问您需要了解酒店、餐厅或活动信息？" }
-        };
-
-        document.getElementById("sendChatBtn").addEventListener("click", () => {
-            const input = document.getElementById("chatInput").value;
-            if (!input.trim()) return;
-            const chatDiv = document.getElementById("chatMessages");
-            const userMsg = document.createElement("div");
-            userMsg.className = "bg-purple-100 p-3 rounded-xl ml-auto max-w-[80%] text-right mb-2 text-purple-800";
-            userMsg.innerHTML = `<i class="fas fa-user mr-1"></i> ${input}`;
-            chatDiv.appendChild(userMsg);
-            const q = input.toLowerCase();
-            const lang = currentLang;
-            let answer = aiData[lang].default;
-            if (q.includes("mehmonxona")||q.includes("hotel")||q.includes("отель")||q.includes("酒店")) answer = aiData[lang].hotels;
-            else if (q.includes("restoran")||q.includes("restaurant")||q.includes("ресторан")||q.includes("餐厅")) answer = aiData[lang].restaurants;
-            else if (q.includes("tadbir")||q.includes("event")||q.includes("событие")||q.includes("活动")) answer = aiData[lang].events;
-            else if (q.includes("vaqt")||q.includes("time")||q.includes("время")||q.includes("时间")) answer = aiData[lang].time;
-            const botMsg = document.createElement("div");
-            botMsg.className = "bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-xl max-w-[80%] mb-2 text-gray-800";
-            botMsg.innerHTML = `<i class="fas fa-robot mr-1 text-purple-600"></i> ${answer}`;
-            chatDiv.appendChild(botMsg);
-            document.getElementById("chatInput").value = "";
-            chatDiv.scrollTop = chatDiv.scrollHeight;
-        });
-
-        document.querySelectorAll(".quick-q").forEach(btn => {
-            btn.addEventListener("click", () => { document.getElementById("chatInput").value = btn.innerText; document.getElementById("sendChatBtn").click(); });
-        });
-
-        // ---- NAVIGATION (asl holicha) ----
-        const sectionsMap = { home: 0, destinations: "section-destinations", hotels: "section-hotels", restaurants: "section-restaurants", events: "section-events", map: "section-map", booking: "section-booking", ai: "section-ai" };
-        document.querySelectorAll("[data-nav]").forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-                const id = link.getAttribute("data-nav");
-                const sectionId = sectionsMap[id];
-                if (sectionId && document.getElementById(sectionId)) {
-                    document.getElementById(sectionId).scrollIntoView({ behavior: "smooth", block: "start" });
-                } else { window.scrollTo({ top: 0, behavior: "smooth" }); }
-                document.getElementById("mobileMenu")?.classList.remove("open");
-            });
-        });
-
-        document.getElementById("exploreBtn").addEventListener("click", () => {
-            document.getElementById("section-destinations").scrollIntoView({ behavior: "smooth" });
-        });
-        document.getElementById("watchVideoBtn").addEventListener("click", () => {
-            alert("🎬 360° virtual sayohat videosi tez orada qo'shiladi!");
-        });
-        document.getElementById("mobileMenuBtn").addEventListener("click", () => {
-            document.getElementById("mobileMenu").classList.toggle("open");
-        });
-
-        // ===== ROBOT DATA (asl holicha) =====
-        const monuments = [
-            {
-                name:{uz:"Registon",ru:"Регистан",en:"Registan",zh:"雷吉斯坦广场"},
-                location:{uz:"Samarqand",ru:"Самарканд",en:"Samarkand",zh:"撒马尔罕"},
-                img:"./images/image1.png",
-                tags:["UNESCO","XV asr","Temuriylar","Madrasalar"],
-                text:{
-                    uz:"Registon — Samarqandning yuragi. Bu ulkan maydon uchta buyuk madrasa bilan o'ralgan: Ulug'bek (1420), Sher-Dor (1636) va Tillakori (1660) madrasalari. UNESCO Jahon merosi ro'yxatiga kiritilgan bu muhtasham ansambl Temuriylar davlati qudratining timsolidir.",
-                    ru:"Регистан — сердце Самарканда. Три великих медресе: Улугбека (1420), Шер-Дор (1636) и Тилля-Кари (1660).",
-                    en:"Registan is the heart of Samarkand — a grand square surrounded by three magnificent madrasas.",
-                    zh:"雷吉斯坦广场是撒马尔罕的心脏"
-                }
-            },
-            {
-                name:{uz:"Minorai Kalon",ru:"Минарет Калян",en:"Kalon Minaret",zh:"卡伦宣礼塔"},
-                location:{uz:"Buxoro",ru:"Бухара",en:"Bukhara",zh:"布哈拉"},
-                img:"./images/image2.png",
-                tags:["XII asr","46 metr","Buxoro","Islom me'morchiligi"],
-                text:{
-                    uz:"Minorai Kalon — Buxoroning ramzi. 1127-yilda Qoraxoniylar tomonidan qurilgan bu minora 46 metr balandligida. Chingizxon Buxoroni vayron qilganida bu minorani ko'rib hayratga tushib, unga tegishga buyurmagan.",
-                    ru:"Минарет Калян — символ Бухары. Построен в 1127 году, высота 46 метров.",
-                    en:"The Kalon Minaret is the symbol of Bukhara. Built in 1127, it stands 46 meters tall.",
-                    zh:"卡伦宣礼塔是布哈拉的象征，建于1127年，高46米。"
-                }
-            },
-            {
-                name:{uz:"Ichan Qal'a",ru:"Ичан-Кала",en:"Itchan Kala",zh:"伊钦卡拉古城"},
-                location:{uz:"Xiva",ru:"Хива",en:"Khiva",zh:"希瓦"},
-                img:"./images/image3.png",
-                tags:["UNESCO","XVII asr","Shahar-muzey","Xiva"],
-                text:{
-                    uz:"Ichan Qal'a — Xivaning ichki shahri. XVII asrda qurilgan bu kichik shahar-muzey butun holda saqlanib qolgan. UNESCO Jahon merosi ro'yxatida.",
-                    ru:"Ичан-Кала — внутренний город Хивы. Этот маленький город-музей XVII века сохранился в первозданном виде.",
-                    en:"Itchan Kala is the inner walled city of Khiva — a perfectly preserved museum-city from the 17th century.",
-                    zh:"伊钦卡拉是希瓦的内城，一座保存完好的17世纪博物馆城市。"
-                }
-            },
-            {
-                name:{uz:"Bibi-Xonim",ru:"Биби-Ханым",en:"Bibi-Khanym",zh:"比比哈努姆清真寺"},
-                location:{uz:"Samarqand",ru:"Самарканд",en:"Samarkand",zh:"撒马尔罕"},
-                img:"./images/image4.png",
-                tags:["1404-yil","Amir Temur","Ulkan gumbaz","UNESCO"],
-                text:{
-                    uz:"Bibi-Xonim masjidi — Amir Temur tomonidan 1404-yilda qurilgan. O'z zamonasining eng ulkan masjidi bo'lgan bu ibodatxonaning asosiy gumbazi 41 metr balandlikda.",
-                    ru:"Мечеть Биби-Ханым построена Амиром Тимуром в 1404 году.",
-                    en:"The Bibi-Khanym Mosque was built by Amir Temur in 1404.",
-                    zh:"比比哈努姆清真寺由阿米尔·帖木儿于1404年建造。"
-                }
-            },
-            {
-                name:{uz:"Ark Qal'asi",ru:"Крепость Арк",en:"Ark Fortress",zh:"阿尔克要塞"},
-                location:{uz:"Buxoro",ru:"Бухара",en:"Bukhara",zh:"布哈拉"},
-                img:"./images/image5.png",
-                tags:["IV asr","Qal'a","Buxoro amiri","Muzey"],
-                text:{
-                    uz:"Ark Qal'asi — Buxoroning eng qadimiy inshooti. Miloddan avvalgi IV asrda qurilgan bu qal'a 1500 yil davomida Buxoro hukmdorlarining qarorgohi bo'lgan.",
-                    ru:"Крепость Арк — древнейшее сооружение Бухары, построенное в IV веке до н.э.",
-                    en:"The Ark Fortress is the oldest structure in Bukhara, built in the 4th century BC.",
-                    zh:"阿尔克要塞是布哈拉最古老的建筑，建于公元前4世纪。"
-                }
-            }
-        ];
-
-        const btnLabels = {
-            uz:"🎙️ Ma'lumot olish",
-            ru:"🎙️ Узнать подробнее",
-            en:"🎙️ Learn more",
-            zh:"🎙️ 了解更多"
-        };
-        const stopLabels = {
-            uz:"⏹ To'xtatish",
-            ru:"⏹ Остановить",
-            en:"⏹ Stop",
-            zh:"⏹ 停止"
-        };
-
-        let currentIdx = 0;
-        let isSpeaking = false;
-        let utterance = null;
-        let typeTimer = null;
-
-        const voiceLangMap = {uz:"uz",ru:"ru-RU",en:"en-US",zh:"zh-CN"};
-
-        function getLangVoice(lang){
-            const voices = speechSynthesis.getVoices();
-            let code = voiceLangMap[lang];
-            return voices.find(v=>v.lang.startsWith(code.split('-')[0])) || voices[0];
-        }
-
-        function setLang(lang){
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-            document.querySelectorAll('.ph-lang').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-            document.getElementById('speakText').textContent = btnLabels[lang].replace('🎙️ ','');
-            updateRightPanel();
-        }
-
-        function setMonument(idx){
-            currentIdx = idx;
-            const m = monuments[idx];
-            document.querySelectorAll('.m-card').forEach(c=>c.classList.toggle('active',+c.dataset.idx===idx));
-            document.querySelectorAll('.m-chip').forEach(c=>c.classList.toggle('active',+c.dataset.idx===idx));
-            document.getElementById('phoneImg').src = m.img;
-            document.getElementById('phoneImgName').textContent = m.name[currentLang];
-            const bubble = document.getElementById('speechBubble');
-            bubble.textContent='';bubble.classList.remove('show');
-            updateRightPanel();
-            stopSpeech();
-        }
-
-        function updateRightPanel(){
-            const m = monuments[currentIdx];
-            document.getElementById('rightImg').src = m.img;
-            document.getElementById('rightName').textContent = m.name[currentLang];
-            document.getElementById('rightLoc').textContent = m.location[currentLang] + ', O\'zbekiston';
-            document.getElementById('rightDesc').textContent = m.text[currentLang];
-            const tagsEl = document.getElementById('rightTags');
-            tagsEl.innerHTML = m.tags.map(t=>`<span class="m-tag">${t}</span>`).join('');
-        }
-
-        function typeText(text, el, cb){
-            clearTimeout(typeTimer);
-            el.textContent='';
-            let i=0;
-            const cursor = document.createElement('span');
-            cursor.className='cursor';
-            el.appendChild(cursor);
-            function next(){
-                if(i<text.length){
-                    el.insertBefore(document.createTextNode(text[i]),cursor);
-                    i++;
-                    typeTimer = setTimeout(next, 30);
-                } else {
-                    cursor.remove();
-                    if(cb) cb();
-                }
-            }
-            next();
-        }
-
-        function stopSpeech(){
-            speechSynthesis.cancel();
-            clearTimeout(typeTimer);
-            isSpeaking = false;
-            const mouth = document.getElementById('rMouth');
-            mouth.classList.add('idle');
-            document.getElementById('soundWaves').classList.remove('active');
-            const btn = document.getElementById('speakBtn');
-            btn.classList.remove('speaking');
-            document.getElementById('speakIcon').textContent='🤖';
-            document.getElementById('speakText').textContent = btnLabels[currentLang].replace('🎙️ ','');
-        }
-
-        function speak(){
-            if(isSpeaking){stopSpeech();return;}
-            isSpeaking=true;
-            const m = monuments[currentIdx];
-            const text = m.text[currentLang];
-            const bubble = document.getElementById('speechBubble');
-
-            const mouth = document.getElementById('rMouth');
-            mouth.classList.remove('idle');
-            document.getElementById('soundWaves').classList.add('active');
-            const btn = document.getElementById('speakBtn');
-            btn.classList.add('speaking');
-            document.getElementById('speakIcon').textContent='⏹';
-            document.getElementById('speakText').textContent = stopLabels[currentLang].replace('⏹ ','');
-
-            bubble.classList.add('show');
-            typeText(text, bubble);
-
-            if('speechSynthesis' in window){
-                speechSynthesis.cancel();
-                utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = voiceLangMap[currentLang];
-                utterance.rate = 0.95;
-                utterance.pitch = 1;
-                const v = getLangVoice(currentLang);
-                if(v) utterance.voice = v;
-                utterance.onend = ()=>{ stopSpeech(); };
-                utterance.onerror = ()=>{ stopSpeech(); };
-                speechSynthesis.speak(utterance);
-            } else {
-                setTimeout(stopSpeech, 7000);
-            }
-        }
-
-        document.getElementById('speakBtn').addEventListener('click', speak);
-        document.querySelectorAll('.lang-btn').forEach(b=>{
-            b.addEventListener('click',()=>setLang(b.dataset.lang));
-        });
-        document.querySelectorAll('.ph-lang').forEach(b=>{
-            b.addEventListener('click',()=>setLang(b.dataset.lang));
-        });
-        document.querySelectorAll('.m-card').forEach(c=>{
-            c.addEventListener('click',()=>setMonument(+c.dataset.idx));
-        });
-        document.querySelectorAll('.m-chip').forEach(c=>{
-            c.addEventListener('click',()=>setMonument(+c.dataset.idx));
-        });
-
-        speechSynthesis.onvoiceschanged = ()=>{ speechSynthesis.getVoices(); };
-
-        // Particles
-        (function(){
-            const c = document.getElementById('particles');
-            if(c){
-                for(let i=0;i<25;i++){
-                    const p=document.createElement('div');
-                    p.className='p';
-                    const size=Math.random()*4+2;
-                    p.style.cssText=`
-                        width:${size}px;height:${size}px;
-                        left:${Math.random()*100}%;
-                        background:hsl(${200+Math.random()*60},70%,60%);
-                        opacity:0;
-                        animation-duration:${Math.random()*10+8}s;
-                        animation-delay:${Math.random()*8}s;
-                    `;
-                    c.appendChild(p);
-                }
-            }
-        })();
-
+        document.querySelectorAll(".ph-lang").forEach(b => b.classList.remove("active"));
+        document.querySelector(`.lang-btn[data-lang="${currentLang}"]`)?.classList.add("bg-blue-600","text-white");
+        document.querySelector(`.ph-lang[data-lang="${currentLang}"]`)?.classList.add("active");
+        document.getElementById('speakText').textContent = btnLabels[currentLang]?.replace('🎙️ ','') || "Ma'lumot";
         updateRightPanel();
+        updatePhoneMonumentName();
+    });
+});
 
-    </script>
+function updatePhoneMonumentName(){const m=monuments[currentIdx];if(m&&m.name[currentLang])document.getElementById('phoneImgName').textContent=m.name[currentLang];}
+function setMonument(idx){currentIdx=idx;const m=monuments[idx];document.querySelectorAll('.m-card,.m-chip').forEach(c=>c.classList.toggle('active',+c.dataset.idx===idx));document.getElementById('phoneImg').src=m.img;document.getElementById('phoneImgName').textContent=m.name[currentLang];document.getElementById('speechBubble').textContent='';document.getElementById('speechBubble').classList.remove('show');updateRightPanel();stopSpeech();}
+function updateRightPanel(){const m=monuments[currentIdx];document.getElementById('rightImg').src=m.img;document.getElementById('rightName').textContent=m.name[currentLang];document.getElementById('rightLoc').textContent=m.location[currentLang]+', O\'zbekiston';document.getElementById('rightDesc').textContent=m.text[currentLang];document.getElementById('rightTags').innerHTML=m.tags.map(t=>`<span class="m-tag">${t}</span>`).join('');}
+function typeText(text,el,cb){clearTimeout(typeTimer);el.textContent='';let i=0;const cursor=document.createElement('span');cursor.className='cursor';el.appendChild(cursor);function next(){if(i<text.length){el.insertBefore(document.createTextNode(text[i]),cursor);i++;typeTimer=setTimeout(next,30);}else{cursor.remove();if(cb)cb();}}next();}
+function stopSpeech(){speechSynthesis.cancel();clearTimeout(typeTimer);isSpeaking=false;document.getElementById('rMouth')?.classList.add('idle');document.getElementById('soundWaves')?.classList.remove('active');const btn=document.getElementById('speakBtn');btn?.classList.remove('speaking');document.getElementById('speakIcon').textContent='🤖';document.getElementById('speakText').textContent=btnLabels[currentLang]?.replace('🎙️ ','')||"Ma'lumot";}
+function speak(){if(isSpeaking){stopSpeech();return;}isSpeaking=true;const m=monuments[currentIdx];const text=m.text[currentLang];const bubble=document.getElementById('speechBubble');document.getElementById('rMouth')?.classList.remove('idle');document.getElementById('soundWaves')?.classList.add('active');const btn=document.getElementById('speakBtn');btn.classList.add('speaking');document.getElementById('speakIcon').textContent='⏹';document.getElementById('speakText').textContent=stopLabels[currentLang]?.replace('⏹ ','')||"To'xtatish";bubble.classList.add('show');typeText(text,bubble);if('speechSynthesis' in window){speechSynthesis.cancel();const voiceLangMap={uz:"uz",ru:"ru-RU",en:"en-US",zh:"zh-CN",ar:"ar-SA",fr:"fr-FR",de:"de-DE",es:"es-ES",ja:"ja-JP",ko:"ko-KR"};utterance=new SpeechSynthesisUtterance(text);utterance.lang=voiceLangMap[currentLang]||"en-US";utterance.rate=0.95;utterance.onend=()=>stopSpeech();utterance.onerror=()=>stopSpeech();speechSynthesis.speak(utterance);}else{setTimeout(stopSpeech,7000);}}
+
+// Event listeners
+document.getElementById('speakBtn')?.addEventListener('click',speak);
+document.querySelectorAll('.m-card,.m-chip').forEach(c=>c.addEventListener('click',()=>setMonument(+c.dataset.idx)));
+
+// Map
+const map=L.map('map').setView([41.311081,69.279562],6.5);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap, CartoDB',subdomains:'abcd'}).addTo(map);
+const allPlaces=[{lat:41.311,lng:69.279,name:"Toshkent",type:"city",icon:"🏙️",desc:"Poytaxt"},{lat:39.654,lng:66.975,name:"Samarqand",type:"city",icon:"🏛️",desc:"Registon"},{lat:39.774,lng:64.428,name:"Buxoro",type:"city",icon:"🕌",desc:"Poi Kalon"},{lat:41.378,lng:60.358,name:"Xiva",type:"city",icon:"🏰",desc:"Ichan qal'a"}];
+allPlaces.forEach(place=>{const colors={city:"#3b82f6",mosque:"#10b981",hotel:"#f59e0b",restaurant:"#ef4444"};const color=colors[place.type]||"#8b5cf6";const html=`<div style="background:${color};width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${place.icon}</div>`;L.marker([place.lat,place.lng],{icon:L.divIcon({html,iconSize:[38,38]})}).addTo(map).bindPopup(`<b>${place.name}</b><br>${place.desc}`);});
+
+// Taxi
+document.getElementById("bookTaxiBtn")?.addEventListener("click",()=>{const pickup=document.getElementById("pickup").value||"Joriy joy";const dropoff=document.getElementById("dropoff").value||"Markaz";const resp=document.getElementById("taxiResponse");resp.classList.remove("hidden");resp.innerHTML='<div class="spinner"></div><p class="mt-2">Haydovchi qidirilmoqda...</p>';setTimeout(()=>{resp.innerHTML=`✅ Taksi topildi! ${pickup} → ${dropoff}. Narx: 15 000 - 25 000 so'm.`;},1500);});
+document.getElementById("searchTicketsBtn")?.addEventListener("click",()=>{const types={flight:"✈️ Samolyot",train:"🚆 Poyezd",bus:"🚌 Avtobus"};const type=types[document.getElementById("ticketType").value];const from=document.getElementById("fromCity").value||"Toshkent";const to=document.getElementById("toCity").value||"Samarqand";const date=document.getElementById("travelDate").value||"2025-05-20";const resp=document.getElementById("ticketResults");resp.classList.remove("hidden");resp.innerHTML='<div class="spinner"></div><p class="mt-2">Qidirilmoqda...</p>';setTimeout(()=>{const prices={flight:45,train:25,bus:15};const price=prices[document.getElementById("ticketType").value]||30;resp.innerHTML=`✅ ${type} chiptasi topildi! ${from} → ${to}, sana: ${date}. Narxi: ${price} USD.`;},1200);});
+
+// Booking modal
+let currentBookingType='hotel',currentItemName='',currentItemLocation='';
+function showToast(message){const toast=document.getElementById('toastMessage');const toastText=document.getElementById('toastText');toastText.textContent=message;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3000);}
+function showHotelModal(name,loc){currentBookingType='hotel';currentItemName=name;currentItemLocation=loc;document.getElementById('modalTitle').innerHTML='<i class="fas fa-hotel"></i> Mehmonxona bron qilish';document.getElementById('modalIcon').innerHTML='<i class="fas fa-building"></i>';document.getElementById('modalItemName').textContent=name;document.getElementById('modalItemLocation').textContent=loc;document.getElementById('bookingDate').value=new Date().toISOString().split('T')[0];document.getElementById('guestName').value='';document.getElementById('guestPhone').value='';document.getElementById('bookingModal').classList.add('active');document.body.style.overflow='hidden';}
+function showRestaurantModal(name,loc){currentBookingType='restaurant';currentItemName=name;currentItemLocation=loc;document.getElementById('modalTitle').innerHTML='<i class="fas fa-utensils"></i> Restoran bron qilish';document.getElementById('modalIcon').innerHTML='<i class="fas fa-utensils"></i>';document.getElementById('modalItemName').textContent=name;document.getElementById('modalItemLocation').textContent=loc;document.getElementById('bookingDate').value=new Date().toISOString().split('T')[0];document.getElementById('guestName').value='';document.getElementById('guestPhone').value='';document.getElementById('bookingModal').classList.add('active');document.body.style.overflow='hidden';}
+function closeBookingModal(){document.getElementById('bookingModal').classList.remove('active');document.body.style.overflow='';}
+function confirmBooking(){const name=document.getElementById('guestName').value;const phone=document.getElementById('guestPhone').value;const date=document.getElementById('bookingDate').value;if(!name||!phone){showToast('Iltimos, ism va telefon raqamingizni kiriting!');return;}if(!date){showToast('Iltimos, sanani tanlang!');return;}showToast(`✅ ${currentItemName} ga bron qilindi!`);closeBookingModal();}
+document.querySelectorAll(".book-hotel").forEach(btn=>btn.addEventListener("click",()=>{const card=btn.closest('.service-card');const name=card.querySelector('h3').textContent;const loc=card.querySelector('.text-sm').textContent.split(',')[0];showHotelModal(name,loc);}));
+document.querySelectorAll(".book-restaurant").forEach(btn=>btn.addEventListener("click",()=>{const card=btn.closest('.service-card');const name=card.querySelector('h3').textContent;const loc=card.querySelector('.text-sm').textContent.split(',')[0];showRestaurantModal(name,loc);}));
+document.querySelectorAll(".event-details").forEach(btn=>btn.addEventListener("click",()=>alert("🎉 Tadbir haqida batafsil ma'lumot uchun saytimizga tashrif buyuring!")));
+document.querySelectorAll(".view-details").forEach(btn=>btn.addEventListener("click",()=>{const city=btn.closest('.dest-card').querySelector('h3').innerText;alert(`📍 ${city} haqida batafsil ma'lumot:\n• 10+ tarixiy obidalar\n• 5-8 mehmonxona\n• Sayohat narxi: $50-150`);}));
+
+// AI Chat
+document.getElementById("sendChatBtn")?.addEventListener("click",()=>{const input=document.getElementById("chatInput").value;if(!input.trim())return;const chatDiv=document.getElementById("chatMessages");const userMsg=document.createElement("div");userMsg.className="bg-purple-100 p-3 rounded-xl ml-auto max-w-[80%] text-right mb-2 text-purple-800";userMsg.innerHTML=`<i class="fas fa-user mr-1"></i> ${input}`;chatDiv.appendChild(userMsg);const q=input.toLowerCase();let answer=aiData[currentLang]?.default||"Savol bering!";if(q.includes("mehmonxona")||q.includes("hotel")||q.includes("отель"))answer=aiData[currentLang]?.hotels||aiData.uz.hotels;else if(q.includes("restoran")||q.includes("restaurant")||q.includes("ресторан"))answer=aiData[currentLang]?.restaurants||aiData.uz.restaurants;else if(q.includes("tadbir")||q.includes("event")||q.includes("событие"))answer=aiData[currentLang]?.events||aiData.uz.events;else if(q.includes("vaqt")||q.includes("time")||q.includes("время"))answer=aiData[currentLang]?.time||aiData.uz.time;const botMsg=document.createElement("div");botMsg.className="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-xl max-w-[80%] mb-2 text-gray-800";botMsg.innerHTML=`<i class="fas fa-robot mr-1 text-purple-600"></i> ${answer}`;chatDiv.appendChild(botMsg);document.getElementById("chatInput").value="";chatDiv.scrollTop=chatDiv.scrollHeight;});
+document.querySelectorAll(".quick-q").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById("chatInput").value=btn.innerText;document.getElementById("sendChatBtn").click();}));
+
+// Navigation
+const sectionsMap={home:0,destinations:"section-destinations",hotels:"section-hotels",restaurants:"section-restaurants",events:"section-events",map:"section-map",booking:"section-booking",ai:"section-ai"};
+document.querySelectorAll("[data-nav]").forEach(link=>{link.addEventListener("click",(e)=>{e.preventDefault();const id=link.getAttribute("data-nav");const sectionId=sectionsMap[id];if(sectionId&&document.getElementById(sectionId))document.getElementById(sectionId).scrollIntoView({behavior:"smooth",block:"start"});else window.scrollTo({top:0,behavior:"smooth"});document.getElementById("mobileMenu")?.classList.remove("open");});});
+document.getElementById("exploreBtn")?.addEventListener("click",()=>document.getElementById("section-destinations").scrollIntoView({behavior:"smooth"}));
+document.getElementById("watchVideoBtn")?.addEventListener("click",()=>alert("🎬 360° virtual sayohat videosi tez orada qo'shiladi!"));
+document.getElementById("mobileMenuBtn")?.addEventListener("click",()=>document.getElementById("mobileMenu").classList.toggle("open"));
+
+// Particles
+(function(){const c=document.getElementById('particles');if(c)for(let i=0;i<25;i++){const p=document.createElement('div');p.className='p';const size=Math.random()*4+2;p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;background:hsl(${200+Math.random()*60},70%,60%);opacity:0;animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*8}s;`;c.appendChild(p);}})();
+
+updateRightPanel();
+</script>
 </body>
 </html>
